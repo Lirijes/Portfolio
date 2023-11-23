@@ -1,25 +1,20 @@
-<script>
-import { defineNuxtComponent } from '#app'; // provides better autocomplete
+<script setup>
+import { computed, ref } from 'vue'; 
 
-export default defineNuxtComponent({
-  data: () => ({
-    projects: []
-  }),
-  // methods: {
-  //   fetchProjects() { //function using browser api to fetch and perfome our request
-  //     fetch('https://jsonplaceholder.typicode.com/todos/1').then( // fetches data from the API
-  //       response => response.json() // parses JSON response into native JavaScript objects
-  //     ).then(json => {
-  //       this.projects = json // sets the data to the response
-  //     })
-  //   }
-  // }
-  methods: {
-    fetchData() {
-      loding.value = true;
-    }
-  }
-})
+  let projects = ref([]); // creates a reactive variable
+
+  const numberOfProjects = computed(() => {
+      return projects.value.length; // i want the length of the projects value
+  })
+
+  function fetchProjects() {
+      fetch('https://localhost:44307/api/Profile/Projects')  // fetches data from the API
+      .then(response => response.json()) // parses JSON response into native JavaScript objects
+      .then(json => {
+        console.log("Projects:", json)
+          projects.value = json // sets the data to the response
+      })
+}
 
 </script>
 
@@ -28,9 +23,9 @@ export default defineNuxtComponent({
     <h1>projects</h1>
     <button @click="fetchProjects">Fetch projects</button> 
     <p>
-      {{ projects }}
+      {{ numberOfProjects.length }} 
     </p>
-    <ul>
+    <ul class="project-list">
       <li v-for="project in projects" :key="`project-id-${project.id}`">
         <input type="checkbox" :checked="project.completed" />
         {{ project.title }}
@@ -49,5 +44,10 @@ html {
 h1, h2, h3, h4 {
     font-family: Georgia, Palatino, 'Times New Roman', Times, serif;
     font-weight: 500;
+}
+
+.project-list {
+    list-style: none;
+    padding: 0;
 }
 </style>

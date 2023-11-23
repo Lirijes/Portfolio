@@ -15,7 +15,6 @@ import { computed, ref } from 'vue';
           projects.value = json // sets the data to the response
       })
 }
-
 </script>
 
 <template>
@@ -28,7 +27,7 @@ import { computed, ref } from 'vue';
     <ul class="project-list">
       <li v-for="project in projects" :key="`project-id-${project.id}`">
         <input type="checkbox" :checked="project.completed" />
-        {{ project.title }}
+        {{ project.projectTitle }}
       </li>
     </ul>
   </div>

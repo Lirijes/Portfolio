@@ -1,24 +1,24 @@
 <script setup>
-import { computed, ref } from 'vue'; 
+// import { computed, ref } from 'vue'; 
 
-  let projects = ref([]); // creates a reactive variable
+//   let projects = ref([]); // creates a reactive variable
 
-  const numberOfProjects = computed(() => {
-      return projects.value.length; // i want the length of the projects value
-  })
+//   const numberOfProjects = computed(() => {
+//       return projects.value.length; // i want the length of the projects value
+//   })
 
-  function fetchProjects() {
-      fetch('https://localhost:44307/api/Profile/Projects')  // fetches data from the API
-      .then(response => response.json()) // parses JSON response into native JavaScript objects
-      .then(json => {
-        console.log("Projects:", json)
-          projects.value = json // sets the data to the response
-      })
-}
+//   function fetchProjects() {
+//       fetch('https://localhost:44307/api/Profile/Projects')  // fetches data from the API
+//       .then(response => response.json()) // parses JSON response into native JavaScript objects
+//       .then(json => {
+//         console.log("Projects:", json)
+//           projects.value = json // sets the data to the response
+//       })
+// }
 </script>
 
 <template>
-  <div>
+  <!-- <div>
     <h1>projects</h1>
     <button @click="fetchProjects">Fetch projects</button> 
     <p>
@@ -30,23 +30,14 @@ import { computed, ref } from 'vue';
         {{ project.projectTitle }}
       </li>
     </ul>
-  </div>
+  </div> -->
 </template>
 
-<style>
-html {
-    font-family: Georgia, Palatino, 'Times New Roman', Times, serif;
-    font-size: 16px;
-    font-weight: 300;
+<style lang="scss" >
+@import './assets/scss/main.scss';
+
+:root {
+  --text-color: #{$textColor}; // special syntaxt for it to understand its not just a simple string
 }
 
-h1, h2, h3, h4 {
-    font-family: Georgia, Palatino, 'Times New Roman', Times, serif;
-    font-weight: 500;
-}
-
-.project-list {
-    list-style: none;
-    padding: 0;
-}
 </style>

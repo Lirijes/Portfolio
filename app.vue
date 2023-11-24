@@ -18,6 +18,9 @@
 </script>
 
 <template>
+  <NavBar />
+  <ProjectsList />
+  <NuxtPage />
   <!-- <div>
     <h1>projects</h1>
     <button @click="fetchProjects">Fetch projects</button> 

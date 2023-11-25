@@ -3,10 +3,9 @@
 
 <template>
     <div>
-      <h1>index page</h1>
+      <h1>contact page</h1>
     </div>
 </template>
-
 
 <style>
 </style>

@@ -17,7 +17,7 @@
                 <p class="footer-info">Links from backend</p>
             </div>
             <div class="footer-body">
-                <p class="footer-info">© 2035 By Lirije Shabani.</p>
+                <p class="footer-info">© 2035 by Lirije Shabani.</p>
             </div>
         </div>
     </div>
@@ -25,7 +25,6 @@
 
 <style lang="scss">
 .footer {
-    margin-top: 20px;
     border-radius: 10px;
     background-color: #f5f5f5;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

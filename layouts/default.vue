@@ -11,9 +11,12 @@
 
 <style lang="scss" >
 @import './assets/scss/main.scss';
+@import './assets/scss/mixins.scss';
+@import './assets/scss/variables.scss';
 
 :root {
   --text-color: #{$textColor}; // special syntaxt for it to understand its not just a simple string
+  --hover-color: #{$hoverColor};
 }
 
 .default-layout {

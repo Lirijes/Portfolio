@@ -48,15 +48,15 @@ export default {
 
             <!-- Navigation menu (hidden initially) -->
             <div class="nav-menu" :class="{ 'show-menu': isMenuOpen && isMobile }">
-                <div class="menu-item"><NuxtLink to="/projects">projects.</NuxtLink></div>
                 <div class="menu-item"><NuxtLink to="/resume">resume.</NuxtLink></div>
+                <div class="menu-item"><NuxtLink to="/projects">projects.</NuxtLink></div>
                 <div class="menu-item"><NuxtLink to="/contact">contact.</NuxtLink></div>
             </div>
 
             <!-- Regular links (hidden when hamburger menu is open or not on mobile) -->
             <div class="navbar-links" v-if="!isMenuOpen || !isMobile">
-                <NuxtLink to="/projects" class="navbar-link">projects.</NuxtLink>
                 <NuxtLink to="/resume" class="navbar-link">resume.</NuxtLink>
+                <NuxtLink to="/projects" class="navbar-link">projects.</NuxtLink>
                 <NuxtLink to="/contact" class="navbar-link">contact.</NuxtLink>
             </div>
         </div>
@@ -129,6 +129,7 @@ export default {
             width: 30%;
             background-color: rgba(180, 154, 154, 0.5); 
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
 
             &.show-menu {
                 display: block;

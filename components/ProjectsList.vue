@@ -9,7 +9,6 @@ const fetchData = async () => {
   try {
     projects.value = await fetchProjects();
   } catch (error) {
-    // Handle error
     console.error('Error fetching projects:', error);
   }
 };

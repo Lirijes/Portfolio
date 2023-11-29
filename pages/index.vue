@@ -1,11 +1,32 @@
 <script lang="ts">
-import backgroundUrl from '~/public/images/marlon-medau-TFg35jn95OU-unsplashSECOND.jpg'
+import { ref, onMounted } from 'vue';
+import backgroundUrl from '~/public/images/marlon-medau-TFg35jn95OU-unsplashSECOND.jpg';
+import type { Profile } from '~/server/api.ts';
+import { fetchProfile } from '~/server/api.ts';
 
 export default {
-  data() {
-    return { backgroundUrl }
-  }
-}
+  setup() {
+    const profile = ref<Profile | null>(null);
+
+    const fetchData = async () => {
+      try {
+        profile.value = await fetchProfile('1');
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+      }
+    };
+
+    onMounted(() => {
+      fetchData(); // Fetch data when the component is mounted
+    });
+
+    return { 
+      backgroundUrl,
+      profile,
+      fetchData,
+    };
+  },
+};
 </script>
 
 <template>
@@ -19,15 +40,15 @@ export default {
             </div>
             <div class="main-info">
               <h1 class="info-title">hello.</h1>
-              <h5 class="info-header">student web developer.</h5>
-              <p class="info-aboutme">A passionate web developer. My life is an exciting balancing act between coding and parenthood. My joy lies in creating digital experiences and finding creative solutions to technical challenges. I believe in balancing technology and love to craft a successful life story!</p>
+              <h5 class="info-header">{{ profile ? profile.title : 'web developer'}}</h5>
+              <p class="info-aboutme">{{ profile ? profile.aboutMe : '' }}</p>
             </div>
           </div>
           <div class="main-links">
             <div class="main-pages">
-              <div class="main-page-links">resume.</div>
-              <div class="main-page-links">projects.</div>
-              <div class="main-page-links">contact.</div>
+              <NuxtLink to="/resume" class="main-page-links">resume.</NuxtLink>
+              <NuxtLink to="/projects" class="main-page-links">projects.</NuxtLink>
+              <NuxtLink to="/contact" class="main-page-links">contact.</NuxtLink>
             </div>
           </div>
         </div>
@@ -70,14 +91,11 @@ export default {
       }
 
       @include lg {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        flex-direction: column;
         align-items: center;
         margin: 300px 0px 200px 0px;
-      }
-
-      @include xxl {
-        margin: 400px 0px 200px 0px;
+        width: 100%;
       }
 
       .main-top {
@@ -93,6 +111,22 @@ export default {
           grid-template-columns: 250px 400px;
         }
 
+        @include lg {
+          grid-template-columns: 270px 500px;
+          justify-content: space-between;
+          width: 100%;
+        }
+
+        @include xl {
+          grid-template-columns: 260px 640px;
+          justify-content: space-between;
+        }
+
+        @include xxl {
+          grid-template-columns: 300px 700px;
+          justify-content: space-between;
+        }
+
         .self-potrait-img {
           display: none; 
 
@@ -105,6 +139,16 @@ export default {
             margin-right: 10px;
           }
 
+          @include lg {
+            width: 180%;
+            justify-content: center;
+          }
+
+          @include xl {
+            width: 180%;
+            justify-content: end;
+          }
+
           img {
             width: 60%;
             height: 100%;
@@ -113,6 +157,10 @@ export default {
             @include sm {
               height: 50%;
             }
+
+            @include xl {
+              margin-right: 50px;
+            }
           }
         }
 
@@ -120,6 +168,14 @@ export default {
 
         @include sm {
           width: 100%;
+        }
+
+        @include lg {
+          width: 80%;
+        }
+
+        @include xl {
+          width: 90%;
         }
 
           .info-title {
@@ -153,6 +209,12 @@ export default {
         position: relative;
         top: 20px;
 
+        @include lg {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          width: 100%;
+        }
+
         .main-pages {
           display: flex;
           flex-direction: column;
@@ -161,6 +223,20 @@ export default {
           @include sm {
             flex-direction: row;
             justify-content: space-evenly;
+          }
+
+          @include lg {
+            justify-content: space-evenly;
+            grid-column-start: 2;
+            grid-column-end: 4;
+            margin-left: 20px;
+          }
+
+          @include xxl {
+            justify-content: space-evenly;
+            grid-column-start: 2;
+            grid-column-end: 4;
+            margin-left: 80px;
           }
 
         .main-page-links {

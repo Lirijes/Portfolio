@@ -16,8 +16,8 @@ const fetchData = async () => {
 </script>
 
 <template>
-    <div>
-        <h1>Projects List</h1>
+    <div class="projects-page">
+        <h1>projects.</h1>
         <button @click="fetchData">Fetch projects</button>
         <p>{{ numberOfProjects }}</p>
         <ul class="project-list">

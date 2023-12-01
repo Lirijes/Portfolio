@@ -1,4 +1,46 @@
 <script lang="ts">
+import type { Profile, ProfileLink } from '~/server/api.ts';
+import { fetchProfile, fetchProfileLinks } from '~/server/api.ts';
+
+export default {
+    setup() { 
+        // Fetch profile data
+        const profile = ref<Profile | null>(null);
+        const profileLinks = ref<ProfileLink[] | null>(null);
+
+        const fetchProfileData = async () => {
+            try {
+                profile.value = await fetchProfile('1');
+                profileLinks.value = await fetchProfileLinks();
+            } catch (error) {
+                console.error('Error fetching profile:', error);
+            }
+        };
+
+        onMounted(() => {
+            fetchProfileData();
+        });
+
+        const getIconForLink = (title: string): [string, string] => {
+            // Map link titles to corresponding Font Awesome icons
+            const iconMap: Record<string, [string, string]> = {
+                Facebook: ['fab', 'facebook-f'],
+                GitHub: ['fab', 'github'],
+                LinkedIn: ['fab', 'linkedin-in'],
+                Instagram: ['fab', 'instagram']
+            };
+
+            return iconMap[title] || ['far', 'question-circle']; // Default icon if not found
+        };
+
+        return {
+            profile,
+            profileLinks,
+            getIconForLink,
+            fetchProfileData,
+        };
+    }
+}
 </script>
 
 <template>
@@ -6,15 +48,25 @@
         <div class="container">
             <div class="footer-body">
                 <div class="footer-title">phone.</div>
-                <p class="footer-info">Phone number from backend</p>
+                <a :href="'tel:' + (profile ? profile.phoneNumber : '')" class="footer-info">
+                    {{ profile ? profile.phoneNumber : '' }}
+                </a>
             </div>
             <div class="footer-body">
                 <div class="footer-title">email.</div>
-                <p class="footer-info">Email from backend</p>
+                <a class="footer-info" :href="'mailto:' + (profile ? profile.email.toLowerCase() : '')">
+                    {{ profile ? profile.email.toLowerCase() : '' }}
+                </a>
             </div>
             <div class="footer-body">
                 <div class="footer-title">follow me.</div>
-                <p class="footer-info">Links from backend</p>
+                <ul class="footer-info">
+                    <li v-for="link in profileLinks" :key="`profile-link-${link.id}`">
+                        <a :href="link.url" target="_blank">
+                            <font-awesome-icon :icon="getIconForLink(link.title)" />
+                        </a>
+                    </li>
+                </ul>
             </div>
             <div class="footer-body" style="grid-row: 2; grid-column: 2; justify-content: center;">
                 <p class="footer-info">© 2035 by Lirije Shabani.</p>
@@ -71,6 +123,14 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+
+            &:last-child {
+                align-self: flex-end;
+
+                @include lg {
+                    align-self: center;
+                }
+            }
             
             .footer-title {
                 font-size: 16px;
@@ -79,8 +139,18 @@
             }
             
             .footer-info {
+                display: flex;
+                flex-direction: row;
                 font-size: 12px;
                 font-weight: 300;
+
+                li {
+                    margin-right: 18px;
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
             }
         }
    }

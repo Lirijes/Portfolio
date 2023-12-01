@@ -2,19 +2,38 @@
 export interface Project {
     id: number;
     projectTitle: string;
+    projectUrl: string;
     description: string;
-    status: string;
 }
 
 export async function fetchProjects(): Promise<Project[]> {
     try {
-      const response = await fetch('https://localhost:44307/api/Profile/Projects');
+      const response = await fetch('http://localhost:5235/api/Profile/Projects');
       const json = await response.json();
       return json as Project[];
     } catch (error) {
       console.error('Error fetching projects:', error);
       throw error;
     }
+}
+
+export async function fetchProject(projectId: string): Promise<Project> {
+  try {
+    const response = await fetch(`http://localhost:5235/api/Profile/Project?id=${projectId}`);
+    if (!response.ok) {
+      // Handle non-success status codes
+      if (response.status === 404) {
+        throw new Error('Project not found');
+      } else {
+        throw new Error(`Failed to fetch project. Status: ${response.status}`);
+      }
+    }
+    const json = await response.json();
+    return json as Project;
+  } catch (error) {
+    console.error('Error fetching project:', error);
+    throw error;
+  }
 }
 
 // FUNCTION FOR FETCHING PROFILE FROM API
@@ -33,7 +52,7 @@ export interface Profile {
 
 export async function fetchProfile(profileId: string): Promise<Profile> {
   try {
-    const response = await fetch('https://localhost:44307/api/Profile/ProfileData');
+    const response = await fetch('http://localhost:5235/api/Profile/ProfileData');
     const json = await response.json();
     return json as Profile;
   } catch (error) {
@@ -41,3 +60,22 @@ export async function fetchProfile(profileId: string): Promise<Profile> {
     throw error;
   }
 }
+
+// FUNCTION FOR FETCHING PROFILE LINKS FROM API
+export interface ProfileLink {
+  id: number;
+  title: string;
+  url: string;
+}
+
+export async function fetchProfileLinks(): Promise<ProfileLink[]> {
+  try {
+    const response = await fetch(`http://localhost:5235/api/Profile/ProfileLinks/`);
+    const json = await response.json();
+    return json as ProfileLink[];
+  } catch (error) {
+    console.error('Error fetching profile links:', error);
+    throw error;
+  }
+}
+

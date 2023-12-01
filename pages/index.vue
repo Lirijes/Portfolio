@@ -1,5 +1,4 @@
 <script lang="ts">
-import { ref, onMounted } from 'vue';
 import backgroundUrl from '~/public/images/marlon-medau-TFg35jn95OU-unsplashSECOND.jpg';
 import type { Profile } from '~/server/api.ts';
 import { fetchProfile } from '~/server/api.ts';
@@ -40,7 +39,7 @@ export default {
             </div>
             <div class="main-info">
               <h1 class="info-title">hello.</h1>
-              <h5 class="info-header">{{ profile ? profile.title : 'web developer'}}</h5>
+              <h5 class="info-header">{{ profile ? profile.title.toLowerCase() : 'web developer'}}</h5>
               <p class="info-aboutme">{{ profile ? profile.aboutMe : '' }}</p>
             </div>
           </div>

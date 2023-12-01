@@ -1,42 +1,71 @@
 <script lang="ts">
-export default {
-  data() {
-    return {
-      isMenuOpen: false,
-      isMobile: false,
-    };
-  },
-  methods: {
-    toggleMenu() {
-      this.isMenuOpen = !this.isMenuOpen;
-    },
-    closeMenu() {
-      this.isMenuOpen = false;
-    },
-    checkMobile() {
-      this.isMobile = window.innerWidth <= 768;
-    },
-  },
-  mounted() {
-    // Check the initial screen size
-    this.checkMobile();
+import type { Profile } from '~/server/api.ts';
+import { fetchProfile } from '~/server/api.ts';
 
-    // Add a listener for screen size changes
-    window.addEventListener('resize', this.checkMobile);
-  },
-  beforeDestroy() {
-    // Remove the listener when the component is destroyed
-    window.removeEventListener('resize', this.checkMobile);
-  },
+export default {
+    setup() {
+        const isMenuOpen = ref(false);
+        const isMobile = ref(false);
+
+        const toggleMenu = () => {
+        isMenuOpen.value = !isMenuOpen.value;
+        };
+
+        const closeMenu = () => {
+        isMenuOpen.value = false;
+        };
+
+        const checkMobile = () => {
+        isMobile.value = window.innerWidth <= 768;
+        };
+
+        onMounted(() => {
+        // Check the initial screen size
+        checkMobile();
+
+        // Add a listener for screen size changes
+        window.addEventListener('resize', checkMobile);
+        });
+
+        onBeforeUnmount(() => {
+        // Remove the listener when the component is destroyed
+        window.removeEventListener('resize', checkMobile);
+        });
+
+        // Fetch profile data
+        const profile = ref<Profile | null>(null);
+
+        const fetchData = async () => {
+        try {
+            profile.value = await fetchProfile('1');
+        } catch (error) {
+            console.error('Error fetching profile:', error);
+        }
+        };
+
+        onMounted(() => {
+            fetchData(); // Fetch data when the component is mounted
+        });
+
+        return {
+        isMenuOpen,
+        isMobile,
+        toggleMenu,
+        closeMenu,
+        checkMobile,
+        profile,
+        fetchData,
+        };
+    },
 };
 </script>
 
 <template>
    <nav class="navbar">
         <div class="container">
-            <NuxtLink to="/" class="navbar-name">lirije 
-                <span class="navbar-lastname">shabani.</span> 
-                <span class="navbar-proffession">/ web developer</span>
+            <NuxtLink to="/" class="navbar-name">{{ profile ? profile.firstName.toLowerCase() : '' }} 
+                <span class="navbar-lastname">{{ profile ? profile.lastName.toLowerCase() + '.' : '' }}</span> 
+                <span class="navbar-proffession">{{ profile ? '/ ' + profile.title.toLowerCase() : '/ ' }}</span>
             </NuxtLink>
 
              <!-- Hamburger menu button (only for mobile) -->

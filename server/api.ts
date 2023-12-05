@@ -17,9 +17,9 @@ export async function fetchProjects(): Promise<Project[]> {
     }
 }
 
-export async function fetchProject(projectId: string): Promise<Project> {
+export async function fetchProject(id: string): Promise<Project> {
   try {
-    const response = await fetch(`http://localhost:5235/api/Profile/Project?id=${projectId}`);
+    const response = await fetch(`http://localhost:5235/api/Profile/Project?id=${id}`);
     if (!response.ok) {
       // Handle non-success status codes
       if (response.status === 404) {

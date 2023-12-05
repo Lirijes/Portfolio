@@ -33,10 +33,9 @@ export default {
           images.push(String(imageUrl));
         }
       }
-      console.log('Project Images:', images);
       return images;
-
     });
+    
     return {
       state,
       projectImages,
@@ -47,7 +46,7 @@ export default {
 </script>
 
 <template>
-    <div  v-if="state" class="project-card">
+    <div v-if="state" class="project-card">
         <div class="container">
             <h5 class="project-card-title">{{ state.projectTitle.toLowerCase() }}</h5>
             <a :href="state.projectUrl.toLocaleLowerCase()" class="project-card-url"  target="_blank">{{ state.projectUrl.toLocaleLowerCase() }}</a>
@@ -61,7 +60,7 @@ export default {
                 </div>
               </template>
             </Carousel>
-            <NuxtLink to="/projectdetail" class="project-card-link">read more about this project <font-awesome-icon icon="fa-solid fa-chevron-right" /></NuxtLink>
+            <NuxtLink :to="`/project-detail/${state.id}`" class="project-card-link">read more about this project <font-awesome-icon icon="fa-solid fa-chevron-right" /></NuxtLink>
         </div>
     </div> 
 </template>

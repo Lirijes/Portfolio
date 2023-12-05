@@ -130,6 +130,11 @@ export default {
       margin: 15px 0 ;
       width: 100%;
       text-align: center;
+
+      &:hover {
+          background-color: rgb(180, 154, 154, 1); 
+          text-decoration: none;
+        }
     }
   }
 }

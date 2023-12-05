@@ -49,56 +49,88 @@ export default {
 <template>
     <div  v-if="state" class="project-card">
         <div class="container">
-            <h2 class="project-card-title">{{ state.projectTitle }}</h2>
-            <p class="project-card-url">link to github name and icon</p>
+            <h5 class="project-card-title">{{ state.projectTitle.toLowerCase() }}</h5>
+            <a :href="state.projectUrl.toLocaleLowerCase()" class="project-card-url"  target="_blank">{{ state.projectUrl.toLocaleLowerCase() }}</a>
             <p class="project-card-description">{{ state.description }}</p>
-            <Carousel :images="projectImages" :currentIndex="currentImageIndex">
+            <Carousel class="img-carousel" :images="projectImages" :currentIndex="currentImageIndex">
               <template v-slot:carousel-item="{ currentIndex }">
-                <div v-for="(image, index) in projectImages" :key="index" :style="{ transform: `translateX(${-currentIndex * 100}%)` }">
-                  <img :src="image" :alt="`Image ${index + 1}`" />
+                <div class="carousel-wrapper">
+                  <div class="image-container" v-for="(image, index) in projectImages" :key="index" :style="{ transform: `translateX(${-currentIndex * 100}%)` }">
+                    <img class="one-img" :src="image" :alt="`Image ${index + 1}`" />
+                  </div>
                 </div>
               </template>
             </Carousel>
-            <Carousel :images="projectImages" :currentIndex="currentImageIndex">
-              <template v-slot:carousel-item="{ currentIndex }">
-                <div class="carousel-item" v-for="(image, index) in projectImages" :key="index" :style="{ transform: `translateX(${-currentIndex * 100}%)` }">
-                  <img :src="image" :alt="`Image ${index + 1}`" class="carousel-image" />
-                </div>
-              </template>
-            </Carousel>
-            <button class="project-card-button">Read more about this project -></button>
+            <NuxtLink to="/projectdetail" class="project-card-link">read more about this project <font-awesome-icon icon="fa-solid fa-chevron-right" /></NuxtLink>
         </div>
     </div> 
 </template>
 
 <style lang="scss">
+@import '../assets/scss/mixins.scss';
+
 .project-card {
-  border: 1px solid black; 
+  margin: 30px 0;
 
   .container {
     background-color: #f5f5f5;
-    width: 80%;
+    width: 90%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 
     .project-card-title {
-      border: 1px solid black; 
+      padding: 10px 0;
+      font-weight: bold;
     }
 
     .project-card-url {
-      border: 1px solid black;
+      margin: 10px 0;
+      font-style: italic;
+      font-size: 12px;
     }
+
     .project-card-description {
-      border: 1px solid black;
+      margin: 10px 0;
     }
-    .project-card-image {
-      border: 1px solid black; 
-      img {
+
+    .img-carousel {
+      height: 200px;
+      overflow: hidden;
+
+      @include mx {
+        height: 400px;
+      }
+
+      @include xl {
+        height: 600px;
+      }
+
+      .carousel-wrapper {
+        display: block;
         width: 100%;
+
+        .image-container {
+          height: 100%;
+
+          .one-img {
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover;
+          }
+        }
       }
     }
-    .project-card-button {
-      border: 1px solid black; 
+
+    .project-card-link {
+      background-color: rgb(180, 154, 154, 0.5);
+      font-size: 14px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      padding: 2.5px 20px;
+      cursor: pointer;
+      margin: 15px 0 ;
+      width: 100%;
+      text-align: center;
     }
   }
 }

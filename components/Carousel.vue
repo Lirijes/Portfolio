@@ -1,11 +1,11 @@
 <script setup lang="ts">
-
-const { images, currentIndex } = defineProps(['images', 'currentIndex']);
+const { images, currentIndex } = defineProps(["images", "currentIndex"]);
 
 const localCurrentIndex = ref(currentIndex || 0);
 
 const prev = () => {
-  localCurrentIndex.value = (localCurrentIndex.value - 1 + images.length) % images.length;
+  localCurrentIndex.value =
+    (localCurrentIndex.value - 1 + images.length) % images.length;
 };
 
 const next = () => {
@@ -14,15 +14,18 @@ const next = () => {
 </script>
 
 <template>
-    <div class="carousel">
-        <button @click="prev" class="carousel-button"><font-awesome-icon icon="fa-solid fa-chevron-left" /></button>
-        <div class="carousel-inner">
-            <slot name="carousel-item" :currentIndex="localCurrentIndex"></slot>
-        </div>
-        <button @click="next" class="carousel-button"><font-awesome-icon icon="fa-solid fa-chevron-right" /></button>
+  <div class="carousel">
+    <button @click="prev" class="carousel-button">
+      <font-awesome-icon icon="fa-solid fa-chevron-left" />
+    </button>
+    <div class="carousel-inner">
+      <slot name="carousel-item" :currentIndex="localCurrentIndex"></slot>
     </div>
+    <button @click="next" class="carousel-button">
+      <font-awesome-icon icon="fa-solid fa-chevron-right" />
+    </button>
+  </div>
 </template>
-  
 
 <style lang="scss">
 .carousel {
@@ -46,8 +49,7 @@ const next = () => {
     justify-content: space-between;
 
     &:hover {
-        background-color: rgba(0, 0, 0, 0.09);
-        
+      background-color: rgba(0, 0, 0, 0.09);
     }
   }
 }

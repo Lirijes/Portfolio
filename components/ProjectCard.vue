@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { fetchProject } from '../server/api';
-import type { Project } from '../server/api';
-import Carousel from './Carousel.vue';
+import { fetchProject } from "../server/api";
+import type { Project } from "../server/api";
+import Carousel from "./Carousel.vue";
 
 const props = defineProps({
   id: {
@@ -17,10 +17,10 @@ onMounted(async () => {
     if (props.id) {
       project.value = await fetchProject(props.id.toString());
     } else {
-      console.error('No project ID provided.');
+      console.error("No project ID provided.");
     }
   } catch (error) {
-    console.error('Error fetching project:', error);
+    console.error("Error fetching project:", error);
   }
 });
 
@@ -38,27 +38,46 @@ const projectImages = computed<string[]>(() => {
 </script>
 
 <template>
-    <div v-if="project" class="project-card">
-        <div class="container">
-            <h5 class="project-card-title">{{ project.projectTitle.toLowerCase() }}</h5>
-            <a :href="project.projectUrl.toLocaleLowerCase()" class="project-card-url"  target="_blank">{{ project.projectUrl.toLocaleLowerCase() }}</a>
-            <p class="project-card-description">{{ project.description }}</p>
-            <Carousel class="img-carousel" :images="projectImages" :currentIndex="currentImageIndex">
-              <template v-slot:carousel-item="{ currentIndex }">
-                <div class="carousel-wrapper">
-                  <div class="image-container" v-for="(image, index) in projectImages" :key="index" :style="{ transform: `translateX(${-currentIndex * 100}%)` }">
-                    <img class="one-img" :src="image" :alt="`Image ${index + 1}`" />
-                  </div>
-                </div>
-              </template>
-            </Carousel>
-            <NuxtLink :to="`/project-detail/${project.id}`" class="project-card-link">read more about this project <font-awesome-icon icon="fa-solid fa-chevron-right" /></NuxtLink>
-        </div>
-    </div> 
+  <div v-if="project" class="project-card">
+    <div class="container">
+      <h5 class="project-card-title">
+        {{ project.projectTitle.toLowerCase() }}
+      </h5>
+      <a
+        :href="project.projectUrl.toLocaleLowerCase()"
+        class="project-card-url"
+        target="_blank"
+        >{{ project.projectUrl.toLocaleLowerCase() }}</a
+      >
+      <p class="project-card-description">{{ project.description }}</p>
+      <Carousel
+        class="img-carousel"
+        :images="projectImages"
+        :currentIndex="currentImageIndex"
+      >
+        <template v-slot:carousel-item="{ currentIndex }">
+          <div class="carousel-wrapper">
+            <div
+              class="image-container"
+              v-for="(image, index) in projectImages"
+              :key="index"
+              :style="{ transform: `translateX(${-currentIndex * 100}%)` }"
+            >
+              <img class="one-img" :src="image" :alt="`Image ${index + 1}`" />
+            </div>
+          </div>
+        </template>
+      </Carousel>
+      <NuxtLink :to="`/project-detail/${project.id}`" class="project-card-link"
+        >read more about this project
+        <font-awesome-icon icon="fa-solid fa-chevron-right"
+      /></NuxtLink>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
-@import '../assets/scss/mixins.scss';
+@import "../assets/scss/mixins.scss";
 
 .project-card {
   margin: 30px 0;
@@ -104,8 +123,8 @@ const projectImages = computed<string[]>(() => {
           height: 100%;
 
           .one-img {
-            width: 100%; 
-            height: 100%; 
+            width: 100%;
+            height: 100%;
             object-fit: cover;
           }
         }
@@ -119,14 +138,14 @@ const projectImages = computed<string[]>(() => {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       padding: 2.5px 20px;
       cursor: pointer;
-      margin: 15px 0 ;
+      margin: 15px 0;
       width: 100%;
       text-align: center;
 
       &:hover {
-          background-color: rgb(180, 154, 154, 1); 
-          text-decoration: none;
-        }
+        background-color: rgb(180, 154, 154, 1);
+        text-decoration: none;
+      }
     }
   }
 }

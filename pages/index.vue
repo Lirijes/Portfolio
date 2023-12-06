@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import backgroundUrl from '~/public/images/marlon-medau-TFg35jn95OU-unsplashSECOND.jpg';
-import type { Profile } from '~/server/api.ts';
-import { fetchProfile } from '~/server/api.ts';
+import backgroundUrl from "~/public/images/marlon-medau-TFg35jn95OU-unsplashSECOND.jpg";
+import type { Profile } from "~/server/api.ts";
+import { fetchProfile } from "~/server/api.ts";
 
 const profile = ref<Profile | null>(null);
 
 const fetchData = async () => {
   try {
-    profile.value = await fetchProfile('1');
+    profile.value = await fetchProfile("1");
   } catch (error) {
-    console.error('Error fetching profile:', error);
+    console.error("Error fetching profile:", error);
   }
 };
 
@@ -19,35 +19,44 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="main">
-      <div class="backgroundImage" :style="{ backgroundImage: `url(${backgroundUrl})` }"></div>
-      <div class="container">
-        <div class="main-content">
-          <div class="main-top">
-            <div class="self-potrait-img">
-              <img src="../public/images/aiony-haust-3TLl_97HNJo-unsplash.jpg" alt=""/>
-            </div>
-            <div class="main-info">
-              <h1 class="info-title">hello.</h1>
-              <h5 class="info-header">{{ profile ? profile.title.toLowerCase() : 'web developer'}}</h5>
-              <p class="info-aboutme">{{ profile ? profile.aboutMe : '' }}</p>
-            </div>
+  <div class="main">
+    <div
+      class="backgroundImage"
+      :style="{ backgroundImage: `url(${backgroundUrl})` }"
+    ></div>
+    <div class="container">
+      <div class="main-content">
+        <div class="main-top">
+          <div class="self-potrait-img">
+            <img
+              src="../public/images/aiony-haust-3TLl_97HNJo-unsplash.jpg"
+              alt=""
+            />
           </div>
-          <div class="main-links">
-            <div class="main-pages">
-              <NuxtLink to="/resume" class="main-page-links">resume.</NuxtLink>
-              <NuxtLink to="/projects" class="main-page-links">projects.</NuxtLink>
-              <NuxtLink to="/contact" class="main-page-links">contact.</NuxtLink>
-            </div>
+          <div class="main-info">
+            <h1 class="info-title">hello.</h1>
+            <h5 class="info-header">
+              {{ profile ? profile.title.toLowerCase() : "web developer" }}
+            </h5>
+            <p class="info-aboutme">{{ profile ? profile.aboutMe : "" }}</p>
+          </div>
+        </div>
+        <div class="main-links">
+          <div class="main-pages">
+            <NuxtLink to="/resume" class="main-page-links">resume.</NuxtLink>
+            <NuxtLink to="/projects" class="main-page-links"
+              >projects.</NuxtLink
+            >
+            <NuxtLink to="/contact" class="main-page-links">contact.</NuxtLink>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
-
 <style lang="scss">
-@import '../assets/scss/mixins.scss';
+@import "../assets/scss/mixins.scss";
 
 .main {
   position: relative;
@@ -66,10 +75,10 @@ onMounted(() => {
   }
 
   .container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .main-content {
       margin: 200px 0px 200px 0px;
@@ -117,7 +126,7 @@ onMounted(() => {
         }
 
         .self-potrait-img {
-          display: none; 
+          display: none;
 
           @include sm {
             display: flex;
@@ -153,19 +162,18 @@ onMounted(() => {
           }
         }
 
-      .main-info {
+        .main-info {
+          @include sm {
+            width: 100%;
+          }
 
-        @include sm {
-          width: 100%;
-        }
+          @include lg {
+            width: 80%;
+          }
 
-        @include lg {
-          width: 80%;
-        }
-
-        @include xl {
-          width: 90%;
-        }
+          @include xl {
+            width: 90%;
+          }
 
           .info-title {
             font-size: 70px;
@@ -174,7 +182,7 @@ onMounted(() => {
           }
 
           .info-header {
-            display: none; 
+            display: none;
 
             @include sm {
               display: block;
@@ -228,21 +236,21 @@ onMounted(() => {
             margin-left: 80px;
           }
 
-        .main-page-links {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 130px;
-          height: 40px;
-          border: 0.5px solid rgb(180, 154, 154);
-          border-radius: 20px;
-          transition: all 0.15s ease-in-out;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-          margin-bottom: 30px;
+          .main-page-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 130px;
+            height: 40px;
+            border: 0.5px solid rgb(180, 154, 154);
+            border-radius: 20px;
+            transition: all 0.15s ease-in-out;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
 
-          @include sm {
-            margin-bottom: 0px;
-          }
+            @include sm {
+              margin-bottom: 0px;
+            }
 
             &:hover {
               background-color: rgb(252, 215, 215);
@@ -254,5 +262,4 @@ onMounted(() => {
     }
   }
 }
-
 </style>

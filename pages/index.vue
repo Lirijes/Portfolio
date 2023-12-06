@@ -1,31 +1,21 @@
-<script lang="ts">
+<script setup lang="ts">
 import backgroundUrl from '~/public/images/marlon-medau-TFg35jn95OU-unsplashSECOND.jpg';
 import type { Profile } from '~/server/api.ts';
 import { fetchProfile } from '~/server/api.ts';
 
-export default {
-  setup() {
-    const profile = ref<Profile | null>(null);
+const profile = ref<Profile | null>(null);
 
-    const fetchData = async () => {
-      try {
-        profile.value = await fetchProfile('1');
-      } catch (error) {
-        console.error('Error fetching profile:', error);
-      }
-    };
-
-    onMounted(() => {
-      fetchData(); // Fetch data when the component is mounted
-    });
-
-    return { 
-      backgroundUrl,
-      profile,
-      fetchData,
-    };
-  },
+const fetchData = async () => {
+  try {
+    profile.value = await fetchProfile('1');
+  } catch (error) {
+    console.error('Error fetching profile:', error);
+  }
 };
+
+onMounted(() => {
+  fetchData(); // Fetch data when the component is mounted
+});
 </script>
 
 <template>

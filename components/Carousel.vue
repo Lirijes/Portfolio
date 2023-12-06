@@ -1,30 +1,15 @@
-<script lang="ts">
-export default {
-  props: {
-    images: {
-      type: Array,
-      default: () => [],
-    },
-    currentIndex: Number,
-  },
-  
-  setup(props) {
-    const localCurrentIndex = ref(props.currentIndex || 0);
+<script setup lang="ts">
 
-    const prev = () => {
-      localCurrentIndex.value = (localCurrentIndex.value - 1 + props.images.length) % props.images.length;
-    };
+const { images, currentIndex } = defineProps(['images', 'currentIndex']);
 
-    const next = () => {
-      localCurrentIndex.value = (localCurrentIndex.value + 1) % props.images.length;
-    };
+const localCurrentIndex = ref(currentIndex || 0);
 
-    return {
-      localCurrentIndex,
-      prev,
-      next,
-    };
-  },
+const prev = () => {
+  localCurrentIndex.value = (localCurrentIndex.value - 1 + images.length) % images.length;
+};
+
+const next = () => {
+  localCurrentIndex.value = (localCurrentIndex.value + 1) % images.length;
 };
 </script>
 
@@ -65,14 +50,5 @@ export default {
         
     }
   }
-  // .carousel-item {
-  //   width: 100%; // Adjust the width based on your layout
-  // }
-
-  // .carousel-image {
-  //   width: 100%; // Adjust the width based on your layout
-  //   height: auto; // Maintain aspect ratio
-  //   display: block; // Remove any residual spacing
-  // }
 }
 </style>

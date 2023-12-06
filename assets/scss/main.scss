@@ -1,7 +1,9 @@
+body,
 html {
     font-family: Georgia, Palatino, 'Times New Roman', Times, serif;
     font-size: 16px;
     font-weight: 300;
+    //height: 100%;
 }
 
 h1, h2, h3, h4 {
@@ -10,7 +12,7 @@ h1, h2, h3, h4 {
     color: var(--text-color);
 }
 
-body,
+
 button, 
 input,
 select,

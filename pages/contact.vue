@@ -1,9 +1,37 @@
 <script setup lang="ts">
-import { fetchProfile, fetchProfileLinks } from '~/server/api';
+import { fetchProfile, fetchProfileLinks, submitContactForm } from '~/server/api';
 import type { Profile, ProfileLink } from '~/server/api';
 
 const profile = ref<Profile | null>(null);
 const profileLinks = ref<ProfileLink[] | null>(null);
+
+// Reactive object to store form data
+const formData = ref({
+  name: '',
+  email: '',
+  phone: '',
+  message: '',
+});
+
+// Method to handle form submission
+const handleSubmit = async () => {
+  try {
+    // Call the API function to submit the contact form
+    await submitContactForm(formData.value);
+    
+    // Optionally, you can reset the form fields after successful submission
+    formData.value = {
+      name: '',
+      email: '',
+      phone: '',
+      message: '',
+    };
+
+    console.log('Contact form submitted successfully!');
+  } catch (error) {
+    console.error('Error submitting contact form:', error);
+  }
+};
 
 onMounted(async () => {
     try {
@@ -22,44 +50,47 @@ onMounted(async () => {
       <div class="container">
         
         <div class="contact-data">
-          <p class="contact-info">email.</p>
+          <p class="contact-info">send me an email.</p>
           <a class="footer-info" :href="'mailto:' + (profile ? profile.email.toLowerCase() : '')">
               {{ profile ? profile.email.toLowerCase() : '' }}
           </a>
-          <p class="contact-info">phone.</p>
+          <p class="contact-info">call or text me.</p>
           <a :href="'tel:' + (profile ? profile.phoneNumber : '')" class="footer-info">
             {{ profile ? profile.phoneNumber : '' }}
           </a>
         </div>
         
-        <form class="contact-form">
+        <form class="contact-form" @submit.prevent="handleSubmit">
           <div class="input-field">
-            <input type="text" class="contact-form-text" placeholder="">
+            <input v-model="formData.name" type="text" class="contact-form-text" placeholder="">
             <p class="contact-placeholder">name.</p>
           </div>
           <div class="input-field">
-            <input type="email" class="contact-form-text" placeholder="">
+            <input v-model="formData.email" type="email" class="contact-form-text" placeholder="">
             <p class="contact-placeholder">email.</p>
           </div>
           <div class="input-field">
-            <input type="text" class="contact-form-text" placeholder="">
+            <input v-model="formData.phone" type="text" class="contact-form-text" placeholder="">
             <p class="contact-placeholder">phonenumber.</p>
           </div>
           <div class="input-field">
-            <textarea class="contact-form-text" placeholder=""></textarea>
+            <textarea v-model="formData.message" class="contact-form-text" placeholder=""></textarea>
             <p class="contact-placeholder">message.</p>
           </div>
 
-          <button class="contact-form-btn">send</button>
+          <button type="submit" class="contact-form-btn">send</button>
         </form>
       </div>
     </div>
 </template>
 
 <style lang="scss">
+@import '../assets/scss/mixins.scss';
+
 .contact-page {
   padding: 100px 0;
   background-color: rgb(180, 154, 154, 0.7); 
+  flex: 1; // added this that helped the page be as larg as the screen
 
   .contact-title {
     font-size: 22px;
@@ -83,6 +114,11 @@ onMounted(async () => {
     align-items: center;
     justify-content: center;
 
+    @include lg {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+    }
+
     .contact-data {
       width: 90%;
       display: flex;
@@ -93,6 +129,26 @@ onMounted(async () => {
       border-radius: 10px;
       padding: 20px 20px;
       margin-top: 20px;
+
+      
+      @include lg {
+        width: 100%;
+        grid-column-start: 1 ;
+        grid-column-end: 3;
+      }
+
+      .contact-info {
+        font-size: 16px;
+        margin-bottom: 5px;
+        font-weight: 700;
+      }
+
+      .footer-info {
+        font-size: 14px;
+        margin-bottom: 5px;
+        text-decoration: none;
+        color: black;
+      }
     }
 
     .contact-form {
@@ -105,6 +161,12 @@ onMounted(async () => {
       border-radius: 10px;
       padding: 20px 20px;
       margin: 20px 0;
+
+      @include lg {
+        grid-column-start: 4;
+        grid-column-end: 7;
+        width: 100%;
+      }
 
       .input-field {
         width: 100%;

@@ -1,63 +1,49 @@
-<script lang="ts">
+<script setup lang="ts">
 import type { Profile } from '~/server/api.ts';
 import { fetchProfile } from '~/server/api.ts';
 
-export default {
-    setup() {
-        const isMenuOpen = ref(false);
-        const isMobile = ref(false);
+const isMenuOpen = ref(false);
+const isMobile = ref(false);
 
-        const toggleMenu = () => {
-        isMenuOpen.value = !isMenuOpen.value;
-        };
-
-        const closeMenu = () => {
-        isMenuOpen.value = false;
-        };
-
-        const checkMobile = () => {
-        isMobile.value = window.innerWidth <= 768;
-        };
-
-        onMounted(() => {
-        // Check the initial screen size
-        checkMobile();
-
-        // Add a listener for screen size changes
-        window.addEventListener('resize', checkMobile);
-        });
-
-        onBeforeUnmount(() => {
-        // Remove the listener when the component is destroyed
-        window.removeEventListener('resize', checkMobile);
-        });
-
-        // Fetch profile data
-        const profile = ref<Profile | null>(null);
-
-        const fetchData = async () => {
-        try {
-            profile.value = await fetchProfile('1');
-        } catch (error) {
-            console.error('Error fetching profile:', error);
-        }
-        };
-
-        onMounted(() => {
-            fetchData(); // Fetch data when the component is mounted
-        });
-
-        return {
-        isMenuOpen,
-        isMobile,
-        toggleMenu,
-        closeMenu,
-        checkMobile,
-        profile,
-        fetchData,
-        };
-    },
+const toggleMenu = () => {
+    isMenuOpen.value = !isMenuOpen.value;
 };
+
+const closeMenu = () => {
+    isMenuOpen.value = false;
+};
+
+const checkMobile = () => {
+    isMobile.value = window.innerWidth <= 768;
+};
+
+onMounted(() => {
+    // Check the initial screen size
+    checkMobile();
+
+    // Add a listener for screen size changes
+    window.addEventListener('resize', checkMobile);
+});
+
+onBeforeUnmount(() => {
+    // Remove the listener when the component is destroyed
+    window.removeEventListener('resize', checkMobile);
+});
+
+// Fetch profile data
+const profile = ref<Profile | null>(null);
+
+const fetchData = async () => {
+    try {
+        profile.value = await fetchProfile('1');
+    } catch (error) {
+        console.error('Error fetching profile:', error);
+    }
+};
+
+onMounted(() => {
+    fetchData(); // Fetch data when the component is mounted
+});
 </script>
 
 <template>
@@ -159,6 +145,7 @@ export default {
             background-color: rgba(180, 154, 154, 0.5); 
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
+            animation: slideTop 0.5s ease-in-out; 
 
             &.show-menu {
                 display: block;
@@ -175,6 +162,17 @@ export default {
                 opacity: 1;
                 }
             }
+
+            @keyframes slideTop {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
         }
 
         .navbar-links {

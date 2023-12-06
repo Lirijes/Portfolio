@@ -52,6 +52,7 @@ const projectImages = computed<string[]>(() => {
 .projectdetail {
     padding: 100px 0 50px 0;
     background-color: rgb(180, 154, 154, 0.7); 
+    flex: 1; // added this that helped the page be as larg as the screen
 
     .container {
     background-color: #f5f5f5;
@@ -77,7 +78,6 @@ const projectImages = computed<string[]>(() => {
 
         .image-array-container {
             width: 90%;
-            //display: flex; //lägg in i större skärm
             justify-content: center;
             align-items: center;
             padding: 20px 0;

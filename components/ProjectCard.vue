@@ -1,56 +1,49 @@
-<script lang="ts">
+<script setup lang="ts">
 import { fetchProject } from '../server/api';
 import type { Project } from '../server/api';
 import Carousel from './Carousel.vue';
 
-export default {
-  components: {
-    Carousel,
+//const id = defineProps([id]);
+const props = defineProps({
+  id: {
+    type: Number as PropType<number>,
+    required: true,
   },
-  props: ['id'],
-  setup(props) {
-    const state = ref<Project | null>(null);
-    const currentImageIndex = ref(0);
+});
+const project = ref<Project | null>(null);
+const currentImageIndex = ref(0);
 
-    onMounted(async () => {
-      try {
-        if (props.id) {
-          state.value = await fetchProject(props.id);
-        } else {
-          console.error('No project ID provided.');
-        }
-      } catch (error) {
-        console.error('Error fetching project:', error);
-      }
-    });
+onMounted(async () => {
+  try {
+    if (props.id) {
+      project.value = await fetchProject(props.id.toString());
+    } else {
+      console.error('No project ID provided.');
+    }
+  } catch (error) {
+    console.error('Error fetching project:', error);
+  }
+});
 
-    const projectImages = computed<string[]>(() => {
-      const images: string[] = [];
-      for (let i = 1; i <= 6; i++) {
-        const imageProperty = `image${i}` as keyof Project;
-        const imageUrl = state.value && state.value[imageProperty];
-        if (imageUrl && imageUrl !== "") {
-          images.push(String(imageUrl));
-        }
-      }
-      return images;
-    });
-    
-    return {
-      state,
-      projectImages,
-      currentImageIndex,
-    };
-  },
-};
+const projectImages = computed<string[]>(() => {
+  const images: string[] = [];
+  for (let i = 1; i <= 6; i++) {
+    const imageProperty = `image${i}` as keyof Project;
+    const imageUrl = project.value && project.value[imageProperty];
+    if (imageUrl && imageUrl !== "") {
+      images.push(String(imageUrl));
+    }
+  }
+  return images;
+});
 </script>
 
 <template>
-    <div v-if="state" class="project-card">
+    <div v-if="project" class="project-card">
         <div class="container">
-            <h5 class="project-card-title">{{ state.projectTitle.toLowerCase() }}</h5>
-            <a :href="state.projectUrl.toLocaleLowerCase()" class="project-card-url"  target="_blank">{{ state.projectUrl.toLocaleLowerCase() }}</a>
-            <p class="project-card-description">{{ state.description }}</p>
+            <h5 class="project-card-title">{{ project.projectTitle.toLowerCase() }}</h5>
+            <a :href="project.projectUrl.toLocaleLowerCase()" class="project-card-url"  target="_blank">{{ project.projectUrl.toLocaleLowerCase() }}</a>
+            <p class="project-card-description">{{ project.description }}</p>
             <Carousel class="img-carousel" :images="projectImages" :currentIndex="currentImageIndex">
               <template v-slot:carousel-item="{ currentIndex }">
                 <div class="carousel-wrapper">
@@ -60,7 +53,7 @@ export default {
                 </div>
               </template>
             </Carousel>
-            <NuxtLink :to="`/project-detail/${state.id}`" class="project-card-link">read more about this project <font-awesome-icon icon="fa-solid fa-chevron-right" /></NuxtLink>
+            <NuxtLink :to="`/project-detail/${project.id}`" class="project-card-link">read more about this project <font-awesome-icon icon="fa-solid fa-chevron-right" /></NuxtLink>
         </div>
     </div> 
 </template>

@@ -1,24 +1,16 @@
-<script lang="ts">
+<script setup lang="ts">
 import { fetchProjects } from '~/server/api';
 import type { Project } from '~/server/api';
 
-export default {
-  setup() {
-    const projects = ref<Project[]>([]);
+const projects = ref<Project[]>([]);
 
-    onMounted(async () => {
-      try {
-        projects.value = await fetchProjects();
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-      }
-    });
-
-    return {
-      projects,
-    };
+onMounted(async () => {
+  try {
+    projects.value = await fetchProjects();
+  } catch (error) {
+    console.error('Error fetching projects:', error);
   }
-};
+});
 </script>
 
 <template>

@@ -79,3 +79,30 @@ export async function fetchProfileLinks(): Promise<ProfileLink[]> {
   }
 }
 
+// FUNCTION FOR SUBMITTING CONTACT FORM TO API
+export interface ContactForm {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+}
+
+export async function submitContactForm(formData: ContactForm): Promise<void> { //Sends a post request to the API
+  try {
+    const response = await fetch('http://localhost:5235/api/Profile/Contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      // Handle non-success status codes
+      throw new Error(`Failed to submit contact form. Status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error('Error submitting contact form:', error);
+    throw error;
+  }
+}

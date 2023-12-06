@@ -1,46 +1,35 @@
-<script lang="ts">
+<script setup lang="ts">
 import type { Profile, ProfileLink } from '~/server/api.ts';
 import { fetchProfile, fetchProfileLinks } from '~/server/api.ts';
 
-export default {
-    setup() { 
-        // Fetch profile data
-        const profile = ref<Profile | null>(null);
-        const profileLinks = ref<ProfileLink[] | null>(null);
+// Fetch profile data
+const profile = ref<Profile | null>(null);
+const profileLinks = ref<ProfileLink[] | null>(null);
 
-        const fetchProfileData = async () => {
-            try {
-                profile.value = await fetchProfile('1');
-                profileLinks.value = await fetchProfileLinks();
-            } catch (error) {
-                console.error('Error fetching profile:', error);
-            }
-        };
-
-        onMounted(() => {
-            fetchProfileData();
-        });
-
-        const getIconForLink = (title: string): [string, string] => {
-            // Map link titles to corresponding Font Awesome icons
-            const iconMap: Record<string, [string, string]> = {
-                Facebook: ['fab', 'facebook-f'],
-                GitHub: ['fab', 'github'],
-                LinkedIn: ['fab', 'linkedin-in'],
-                Instagram: ['fab', 'instagram']
-            };
-
-            return iconMap[title] || ['far', 'question-circle']; // Default icon if not found
-        };
-
-        return {
-            profile,
-            profileLinks,
-            getIconForLink,
-            fetchProfileData,
-        };
+const fetchProfileData = async () => {
+    try {
+        profile.value = await fetchProfile('1');
+        profileLinks.value = await fetchProfileLinks();
+    } catch (error) {
+        console.error('Error fetching profile:', error);
     }
-}
+};
+
+onMounted(() => {
+    fetchProfileData();
+});
+
+const getIconForLink = (title: string): [string, string] => {
+    // Map link titles to corresponding Font Awesome icons
+    const iconMap: Record<string, [string, string]> = {
+        Facebook: ['fab', 'facebook-f'],
+        GitHub: ['fab', 'github'],
+        LinkedIn: ['fab', 'linkedin-in'],
+        Instagram: ['fab', 'instagram']
+    };
+
+    return iconMap[title] || ['far', 'question-circle']; // Default icon if not found
+};
 </script>
 
 <template>

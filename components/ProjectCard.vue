@@ -3,7 +3,6 @@ import { fetchProject } from '../server/api';
 import type { Project } from '../server/api';
 import Carousel from './Carousel.vue';
 
-//const id = defineProps([id]);
 const props = defineProps({
   id: {
     type: Number as PropType<number>,

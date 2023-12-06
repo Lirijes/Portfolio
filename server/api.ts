@@ -106,3 +106,156 @@ export async function submitContactForm(formData: ContactForm): Promise<void> { 
     throw error;
   }
 }
+
+// FUNCTION FOR FETCHING EDUCATION FROM API
+export interface Education {
+  id: number;
+  educationTitle: string;
+  schoolName: string;
+  description: string;
+}
+
+export async function fetchEducations(): Promise<Education[]> {
+  try {
+    const response = await fetch('http://localhost:5235/api/Profile/ProfileEducations');
+    const json = await response.json();
+    return json as Education[];
+  } catch (error) {
+    console.error('Error fetching education:', error);
+    throw error;
+  }
+}
+
+export async function fetchEducation(id: string): Promise<Education> {
+  try {
+    const response = await fetch(`http://localhost:5235/api/Profile/ProfileEducation?id=${id}`);
+    if (!response.ok) {
+      // Handle non-success status codes
+      if (response.status === 404) {
+        throw new Error('Education not found');
+      } else {
+        throw new Error(`Failed to fetch education. Status: ${response.status}`);
+      }
+    }
+    const json = await response.json();
+    return json as Education;
+  } catch (error) {
+    console.error('Error fetching education:', error);
+    throw error;
+  }
+}
+
+// FUNCTION FOR FETCHING EXPERIENCE FROM API
+export interface Experience {
+  id: number;
+  title: string;
+  startDate: string;
+  endDate: string;
+  workplace: string;
+  description: string;
+}
+
+export async function fetchExperiences(): Promise<Experience[]> {
+  try {
+    const response = await fetch('http://localhost:5235/api/Profile/ProfileExperiences');
+    const json = await response.json();
+    return json as Experience[];
+  } catch (error) {
+    console.error('Error fetching experience:', error);
+    throw error;
+  }
+}
+
+export async function fetchExperience(id: string): Promise<Experience> {
+  try {
+    const response = await fetch(`http://localhost:5235/api/Profile/ProfileExperience?id=${id}`);
+    if (!response.ok) {
+      // Handle non-success status codes
+      if (response.status === 404) {
+        throw new Error('Experience not found');
+      } else {
+        throw new Error(`Failed to fetch experience. Status: ${response.status}`);
+      }
+    }
+    const json = await response.json();
+    return json as Experience;
+  } catch (error) {
+    console.error('Error fetching experience:', error);
+    throw error;
+  }
+}
+
+// FUNCTION FOR FETCHING SKILLS FROM API
+export interface Skill {
+  id: number;
+  name: string;
+  description: string;
+}
+
+export async function fetchSkills(): Promise<Skill[]> {
+  try {
+    const response = await fetch('http://localhost:5235/api/Profile/Skills');
+    const json = await response.json();
+    return json as Skill[];
+  } catch (error) {
+    console.error('Error fetching skills:', error);
+    throw error;
+  }
+}
+
+export async function fetchSkill(id: string): Promise<Skill> {
+  try {
+    const response = await fetch(`http://localhost:5235/api/Profile/Skill?id=${id}`);
+    if (!response.ok) {
+      // Handle non-success status codes
+      if (response.status === 404) {
+        throw new Error('Skill not found');
+      } else {
+        throw new Error(`Failed to fetch skill. Status: ${response.status}`);
+      }
+    }
+    const json = await response.json();
+    return json as Skill;
+  } catch (error) {
+    console.error('Error fetching skill:', error);
+    throw error;
+  }
+}
+
+
+// FUNCTION FOR FETCHING UTILITIES FROM API
+export interface Utility {
+  id: number;
+  name: string;
+  description: string;
+}
+
+export async function fetchUtilities(): Promise<Utility[]> {
+  try {
+    const response = await fetch('http://localhost:5235/api/Profile/Utilities');
+    const json = await response.json();
+    return json as Utility[];
+  } catch (error) {
+    console.error('Error fetching utilities:', error);
+    throw error;
+  }
+}
+
+export async function fetchUtility(id: string): Promise<Utility> {
+  try {
+    const response = await fetch(`http://localhost:5235/api/Profile/Utility?id=${id}`);
+    if (!response.ok) {
+      // Handle non-success status codes
+      if (response.status === 404) {
+        throw new Error('Utility not found');
+      } else {
+        throw new Error(`Failed to fetch utilities. Status: ${response.status}`);
+      }
+    }
+    const json = await response.json();
+    return json as Utility;
+  } catch (error) {
+    console.error('Error fetching utilities:', error);
+    throw error;
+  }
+}

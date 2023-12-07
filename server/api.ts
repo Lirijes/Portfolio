@@ -1,56 +1,25 @@
-const BASE_URL = "http://localhost:5235/api/Profile";
-
-// Common headers for all requests
-const commonHeaders: {
-  "Content-Type": string;
-  Authorization?: string;
-} = {
-  "Content-Type": "application/json",
-};
-
-// Function to set the authorization token
-export function setAuthToken(authToken: string | null): void {
-  if (authToken) {
-    commonHeaders.Authorization = `Bearer ${authToken}`;
-  } else {
-    delete commonHeaders.Authorization;
-  }
-}
-
-// Generic function to make API requests
-async function makeRequest<T>(url: string, options?: RequestInit): Promise<T> {
-  try {
-    const response = await fetch(`${BASE_URL}/${url}`, { ...options, headers: { ...commonHeaders, ...options?.headers } });
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}: ${JSON.stringify(data)}`);
-    }
-
-    return data as T;
-  } catch (error) {
-    console.error("API request error:", error);
-    throw error;
-  }
-}
-
-
 //FUNCTION TO FETCH PROTECTED DATA USING PROVIDED AUTHTOKEN
 export interface ProtectedDataResponse {
-  data: string; 
+  data: string; // Replace 'string' with the actual type of your protected data
 }
 
 export async function fetchProtectedData(authToken: string): Promise<ProtectedDataResponse> {
   try {
-    // Use makeRequest function with common headers
-    const data = await makeRequest<ProtectedDataResponse>("Profile/ProtectedData", {
+    const response = await fetch("http://localhost:5235/api/Profile/ProtectedData", {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${authToken}`,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`, // Include the authToken in the Authorization header
       },
     });
 
-    return data;
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch protected data. Status: ${response.status}`);
+    }
+
+    return data as ProtectedDataResponse;
   } catch (error) {
     console.error("Error fetching protected data:", error);
     throw error;

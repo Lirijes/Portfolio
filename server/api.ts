@@ -1,3 +1,94 @@
+const BASE_URL = "http://localhost:5235/api/Profile";
+
+// Common headers for all requests
+const commonHeaders: {
+  "Content-Type": string;
+  Authorization?: string;
+} = {
+  "Content-Type": "application/json",
+};
+
+// Function to set the authorization token
+export function setAuthToken(authToken: string | null): void {
+  if (authToken) {
+    commonHeaders.Authorization = `Bearer ${authToken}`;
+  } else {
+    delete commonHeaders.Authorization;
+  }
+}
+
+// Generic function to make API requests
+async function makeRequest<T>(url: string, options?: RequestInit): Promise<T> {
+  try {
+    const response = await fetch(`${BASE_URL}/${url}`, { ...options, headers: { ...commonHeaders, ...options?.headers } });
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}: ${JSON.stringify(data)}`);
+    }
+
+    return data as T;
+  } catch (error) {
+    console.error("API request error:", error);
+    throw error;
+  }
+}
+
+
+//FUNCTION TO FETCH PROTECTED DATA USING PROVIDED AUTHTOKEN
+export interface ProtectedDataResponse {
+  data: string; 
+}
+
+export async function fetchProtectedData(authToken: string): Promise<ProtectedDataResponse> {
+  try {
+    // Use makeRequest function with common headers
+    const data = await makeRequest<ProtectedDataResponse>("Profile/ProtectedData", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching protected data:", error);
+    throw error;
+  }
+}
+
+// FUNCTION TO SAVE PHONE NUMBER TO API
+export interface SavePhoneNumberResponse {
+  success: boolean;
+  verificationCode: string;
+  authToken: string;
+}
+
+export async function submitPhoneNumber(phoneNumber: string): Promise<SavePhoneNumberResponse> {
+  try {
+    const response = await fetch("http://localhost:5235/api/Profile/SavePhoneNumber", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ phoneNumber }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      // Handle non-success status codes
+      throw new Error(`Failed to save phone number. Server returned: ${JSON.stringify(data)}`);
+    }
+
+    return data as SavePhoneNumberResponse;
+  } catch (error) {
+    console.error("Error saving phone number:", error);
+    throw error;
+  }
+}
+
+
 // FUNCTION FOR FETCHING PROJECTS FROM API
 export interface Project {
   id: number;

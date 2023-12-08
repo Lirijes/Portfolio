@@ -44,6 +44,7 @@ const verifyCode = () => {
   if (enteredVerificationCode.value === verificationCode.value) {
     console.log("Verification successful!");
     fetchAndSetProtectedData();
+    router.push('/');
   } else {
     console.error("Verification failed. Please check the entered code.");
   }

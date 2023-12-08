@@ -4,9 +4,26 @@ import { submitPhoneNumber, fetchProtectedData } from "~/server/api.ts";
 const phoneNumber = ref("");
 const verificationCode = ref("");
 const enteredVerificationCode = ref("");
-const authToken = ref(""); // Token to be stored and used for authentication
+//const authToken = ref(""); // Token to be stored and used for authentication
+//const authToken = ref(localStorage.getItem("authToken") || "");
 const protectedData = ref(""); // Store the fetched protected data
 const router = useRouter();
+
+const getAuthTokenFromLocalStorage = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("authToken") || "";
+  }
+  return "";
+};
+
+const authToken = ref(getAuthTokenFromLocalStorage() || "");
+console.log("authToken: ", authToken);
+
+const setAuthTokenInLocalStorage = (token: string) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("authToken", token);
+  }
+};
 
 const handleSubmitPhoneNumber = async () => {
   try {
@@ -14,10 +31,14 @@ const handleSubmitPhoneNumber = async () => {
 
     if (response.success) {
       console.log(
-        `Phone number saved successfully. Verification code: ${response.verificationCode}`
+        `Phone number is valid. Verification code: ${response.verificationCode}`
       );
       verificationCode.value = response.verificationCode; // Set the verification code
       authToken.value = response.authToken;
+
+      // Save the authToken in localStorage
+      setAuthTokenInLocalStorage(response.authToken);
+      console.log("authToken: ", authToken);
 
       // Fetch protected data after successful verification
       await fetchAndSetProtectedData();
@@ -34,7 +55,6 @@ const fetchAndSetProtectedData = async () => {
     const response = await fetchProtectedData(authToken.value);
     protectedData.value = response.data;
     console.log("Fetched protected data:", protectedData.value);
-    //router.push('/');
   } catch (error) {
     console.error("Error fetching protected data:", error);
   }
@@ -54,9 +74,7 @@ const verifyCode = () => {
 <template>
   <div class="onboarding-page">
     <h1 class="onboarding-title">welcome.</h1>
-    <label class="label-verification" for="phoneNumber"
-      >please enter your phone number to enter the page.</label
-    >
+    <label class="label-verification" for="phoneNumber">please enter your phone number to enter the page.</label>
     <input
       class="input-verification"
       v-model="phoneNumber"

@@ -7,8 +7,19 @@ export default defineNuxtConfig({
   ],
 
   modules: [
-    'vue3-carousel-nuxt'
+    'vue3-carousel-nuxt',
+    // '@nuxtjs/auth-next',
   ],
+
+  // auth: {
+  //   strategies: {
+  //     local: {
+  //       token: {
+  //         property: 'authToken',
+  //       },
+  //     },
+  //   },
+  // },
   
   vite: {
     define: {
@@ -18,5 +29,9 @@ export default defineNuxtConfig({
   
   generate: {
     routes: ['/'],
-  }
+  },
+
+  // router: {
+  //   middleware: ['auth'],
+  // },
 });

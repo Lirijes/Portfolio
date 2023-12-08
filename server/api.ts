@@ -9,7 +9,7 @@ export async function fetchProtectedData(authToken: string): Promise<ProtectedDa
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${authToken}`, // Include the authToken in the Authorization header
+        Authorization: `Bearer ${authToken}`,
       },
     });
 
@@ -26,7 +26,7 @@ export async function fetchProtectedData(authToken: string): Promise<ProtectedDa
   }
 }
 
-// FUNCTION TO SAVE PHONE NUMBER TO API
+// FUNCTION TO SAVE PHONE NUMBER TO API0
 export interface SavePhoneNumberResponse {
   success: boolean;
   verificationCode: string;
@@ -46,9 +46,11 @@ export async function submitPhoneNumber(phoneNumber: string): Promise<SavePhoneN
     const data = await response.json();
 
     if (!response.ok) {
-      // Handle non-success status codes
       throw new Error(`Failed to save phone number. Server returned: ${JSON.stringify(data)}`);
     }
+
+    // Store the authentication token locally
+    localStorage.setItem("authToken", data.authToken);
 
     return data as SavePhoneNumberResponse;
   } catch (error) {

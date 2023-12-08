@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "allowImportingTsExtensions": true // Allow importing .ts files
+    "allowImportingTsExtensions": true, // Allow importing .ts files
+    // "types": [
+    //   "@nuxtjs/auth-next",
+    // ]
   },
   "extends": "./.nuxt/tsconfig.json"
 }

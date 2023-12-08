@@ -32,6 +32,19 @@ const checkMobile = () => {
   isMobile.value = window.innerWidth <= 768;
 };
 
+const leave = () => {
+  removeAuthTokenFromLocalStorage();
+
+  // Optionally, you might want to clear other state variables or perform additional cleanup
+  router.push('/onboarding');
+};
+
+const removeAuthTokenFromLocalStorage = () => {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("authToken");
+  }
+};
+
 onBeforeUnmount(() => {
   // Remove the listener when the component is destroyed
   window.removeEventListener("resize", checkMobile);
@@ -79,6 +92,7 @@ onMounted(() => {
         <div class="menu-item" @click="closeMenuAndNavigate('/contact')">
           <NuxtLink to="/contact">contact.</NuxtLink>
         </div>
+        <div class="logout-btn" @click="leave">leave-></div>
       </div>
 
       <!-- Regular links (hidden when hamburger menu is open or not on mobile) -->
@@ -86,6 +100,7 @@ onMounted(() => {
         <NuxtLink to="/resume" class="navbar-link">resume.</NuxtLink>
         <NuxtLink to="/projects" class="navbar-link">projects.</NuxtLink>
         <NuxtLink to="/contact" class="navbar-link">contact.</NuxtLink>
+        <div class="logout-btn" @click="leave">leave-></div>
       </div>
     </div>
   </nav>
@@ -165,6 +180,18 @@ onMounted(() => {
       }
 
       .menu-item {
+        font-size: 16px;
+        text-align: end;
+        margin: 20px 20px 20px 0;
+        cursor: pointer;
+        transition: opacity 0.4s ease;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      .logout-btn {
         font-size: 16px;
         text-align: end;
         margin: 20px 20px 20px 0;

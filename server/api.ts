@@ -1,3 +1,13 @@
+import { useRouter } from 'vue-router';
+
+export const checkAuthentication = () => {
+  const router = useRouter();
+  if (!localStorage.getItem('authToken')) {
+    // Redirect to onboarding page if not authenticated
+    router.push('/onboarding');
+  }
+};
+
 //FUNCTION TO FETCH PROTECTED DATA USING PROVIDED AUTHTOKEN
 export interface ProtectedDataResponse {
   data: string; // Replace 'string' with the actual type of your protected data

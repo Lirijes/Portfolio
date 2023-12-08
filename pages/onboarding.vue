@@ -17,7 +17,6 @@ const getAuthTokenFromLocalStorage = () => {
 };
 
 const authToken = ref(getAuthTokenFromLocalStorage() || "");
-console.log("authToken: ", authToken);
 
 const setAuthTokenInLocalStorage = (token: string) => {
   if (typeof window !== "undefined") {
@@ -38,7 +37,6 @@ const handleSubmitPhoneNumber = async () => {
 
       // Save the authToken in localStorage
       setAuthTokenInLocalStorage(response.authToken);
-      console.log("authToken: ", authToken);
 
       // Fetch protected data after successful verification
       await fetchAndSetProtectedData();
@@ -54,7 +52,6 @@ const fetchAndSetProtectedData = async () => {
   try {
     const response = await fetchProtectedData(authToken.value);
     protectedData.value = response.data;
-    console.log("Fetched protected data:", protectedData.value);
   } catch (error) {
     console.error("Error fetching protected data:", error);
   }

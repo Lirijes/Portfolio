@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {
+  checkAuthentication,
   fetchEducations,
   fetchExperiences,
   fetchSkills,
@@ -13,6 +14,7 @@ const skills = ref<Skill[]>([]);
 const utilities = ref<Utility[]>([]);
 
 onMounted(async () => {
+  checkAuthentication();
   try {
     educations.value = await fetchEducations();
     experiences.value = await fetchExperiences();

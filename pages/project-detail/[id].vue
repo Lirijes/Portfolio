@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { fetchProject } from "~/server/api";
+import { checkAuthentication, fetchProject } from "~/server/api";
 import type { Project } from "~/server/api";
 
 const route = useRoute();
 const project = ref<Project | null>(null);
 
 onMounted(async () => {
+  checkAuthentication();
   try {
     const id = route.params.id as string;
     if (id) {

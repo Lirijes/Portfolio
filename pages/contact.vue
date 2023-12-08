@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { fetchProfile, fetchProfileLinks, submitContactForm } from '~/server/api';
+import { checkAuthentication, fetchProfile, fetchProfileLinks, submitContactForm } from '~/server/api';
 import type { Profile, ProfileLink } from '~/server/api';
 
 const profile = ref<Profile | null>(null);
@@ -34,6 +34,7 @@ const handleSubmit = async () => {
 };
 
 onMounted(async () => {
+    checkAuthentication();
     try {
         profile.value = await fetchProfile('1');
         profileLinks.value = await fetchProfileLinks();

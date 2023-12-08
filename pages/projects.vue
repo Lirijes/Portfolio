@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { fetchProjects } from "~/server/api";
+import { checkAuthentication, fetchProjects } from "~/server/api";
 import type { Project } from "~/server/api";
 
 const projects = ref<Project[]>([]);
 
 onMounted(async () => {
+  checkAuthentication();
   try {
     projects.value = await fetchProjects();
   } catch (error) {

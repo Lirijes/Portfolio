@@ -26,7 +26,10 @@ onMounted(async () => {
 
 <template>
   <div class="resume-page">
-    <h1 class="resume-title">resume.</h1>
+    <div class="resume-header">
+      <h1 class="resume-title">resume.</h1>
+      <button class="load-resume">load resume as PDF</button>
+    </div>
     <div class="container">
       <div class="resume-section">
         <h1 class="resume-section-title">education.</h1>
@@ -64,7 +67,6 @@ onMounted(async () => {
           />
         </div>
       </div>
-      <!-- a resume button taking me to a pdf file in a browser and from there maybe download?  -->
     </div>
   </div>
 </template>
@@ -77,10 +79,52 @@ onMounted(async () => {
   background-color: rgb(180, 154, 154, 0.7);
   flex: 1; // added this that helped the page be as larg as the screen
 
-  .resume-title {
-    font-size: 22px;
-    display: flex;
-    justify-content: center;
+  .resume-header {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+
+    @include xl {
+      grid-template-columns: repeat(9, 1fr);
+    }
+
+    .resume-title {
+      font-size: 22px;
+    }
+
+    @include xl {
+      .resume-title {
+        grid-column-start: 5;
+        grid-column-end: 6;
+      }
+    }
+
+    .load-resume {
+      margin: 10px 0;
+      padding: 7px 15px;
+      border-radius: 10px;
+      border: none;
+      background-color: #f5f5f5;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+
+      @include xl {
+        grid-column-start: 7;
+        grid-column-end: 9;
+        margin-left: -20px;
+      }
+
+      @include xxl {
+        grid-column-start: 7;
+        grid-column-end: 8;
+        margin-left: -20px;
+      }
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
   }
 
   .container {

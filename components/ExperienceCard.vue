@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { fetchExperience } from "~/server/api";
-import type { Experience } from "~/server/api";
+import { fetchExperience } from "~/composables/useResumeFetch";
+import type { Experience } from "~/composables/useResumeFetch";
 
 const props = defineProps({
   id: {

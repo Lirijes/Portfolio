@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import {
-  checkAuthentication,
   fetchEducations,
   fetchExperiences,
   fetchSkills,
   fetchUtilities,
-} from "~/server/api";
-import type { Education, Experience, Skill, Utility } from "~/server/api";
+} from "~/composables/useResumeFetch";
+import type { Education, Experience, Skill, Utility } from "~/composables/useResumeFetch";
 
 const educations = ref<Education[]>([]);
 const experiences = ref<Experience[]>([]);
@@ -14,7 +13,7 @@ const skills = ref<Skill[]>([]);
 const utilities = ref<Utility[]>([]);
 
 onMounted(async () => {
-  checkAuthentication();
+  // checkAuthentication();
   try {
     educations.value = await fetchEducations();
     experiences.value = await fetchExperiences();

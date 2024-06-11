@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { fetchProject } from "../server/api";
-import type { Project } from "../server/api";
+import { fetchProject } from "../composables/useProjectFetch";
+import type { Project } from "../composables/useProjectFetch";
 import Carousel from "./Carousel.vue";
 
 const props = defineProps({

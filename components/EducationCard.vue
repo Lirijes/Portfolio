@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { fetchEducation } from "~/server/api";
-import type { Education } from "~/server/api";
+import { fetchEducation } from "~/composables/useResumeFetch";
+import type { Education } from "~/composables/useResumeFetch";
 
 const props = defineProps({
   id: {

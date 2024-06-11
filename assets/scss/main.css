@@ -1,0 +1,43 @@
+body,
+html {
+  font-family: Georgia, Palatino, "Times New Roman", Times, serif;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: Georgia, Palatino, "Times New Roman", Times, serif;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: Georgia, Palatino, "Times New Roman", Times, serif;
+  background-color: transparent;
+}
+
+p {
+  margin-bottom: 0px;
+  font-size: 14px;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  display: inline-block;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0px;
+}/*# sourceMappingURL=main.css.map */

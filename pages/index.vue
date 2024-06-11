@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import backgroundUrl from "~/public/images/marlon-medau-TFg35jn95OU-unsplashSECOND.jpg";
-import type { Profile } from "~/server/api.ts";
-import { checkAuthentication, fetchProfile } from "~/server/api.ts";
+import type { Profile } from "~/composables/useProfileFetch";
+import { fetchProfile } from "~/composables/useProfileFetch";
 
 const profile = ref<Profile | null>(null);
 
@@ -14,7 +14,7 @@ const fetchData = async () => {
 };
 
 onMounted(() => {
-  checkAuthentication();
+  // checkAuthentication();
   fetchData(); // Fetch data when the component is mounted
 });
 </script>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Profile, ProfileLink } from "~/server/api.ts";
-import { fetchProfile, fetchProfileLinks } from "~/server/api.ts";
+import type { Profile, ProfileLink } from "~/composables/useProfileFetch";
+import { fetchProfile, fetchProfileLinks } from "~/composables/useProfileFetch";
 
 // Fetch profile data
 const profile = ref<Profile | null>(null);

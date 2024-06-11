@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Profile } from "~/server/api.ts";
-import { fetchProfile } from "~/server/api.ts";
+import type { Profile } from "~/composables/useProfileFetch";
+import { fetchProfile } from "~/composables/useProfileFetch";
 
 const router = useRouter();
 const isMenuOpen = ref(false);
@@ -32,18 +32,18 @@ const checkMobile = () => {
   isMobile.value = window.innerWidth <= 768;
 };
 
-const leave = () => {
-  removeAuthTokenFromLocalStorage();
+// const leave = () => {
+//   removeAuthTokenFromLocalStorage();
 
-  // Optionally, you might want to clear other state variables or perform additional cleanup
-  router.push('/onboarding');
-};
+//   // Optionally, you might want to clear other state variables or perform additional cleanup
+//   router.push('/onboarding');
+// };
 
-const removeAuthTokenFromLocalStorage = () => {
-  if (typeof window !== "undefined") {
-    localStorage.removeItem("authToken");
-  }
-};
+// const removeAuthTokenFromLocalStorage = () => {
+//   if (typeof window !== "undefined") {
+//     localStorage.removeItem("authToken");
+//   }
+// };
 
 onBeforeUnmount(() => {
   // Remove the listener when the component is destroyed
@@ -92,7 +92,6 @@ onMounted(() => {
         <div class="menu-item" @click="closeMenuAndNavigate('/contact')">
           <NuxtLink to="/contact">contact.</NuxtLink>
         </div>
-        <div class="logout-btn" @click="leave">leave-></div>
       </div>
 
       <!-- Regular links (hidden when hamburger menu is open or not on mobile) -->
@@ -100,7 +99,7 @@ onMounted(() => {
         <NuxtLink to="/resume" class="navbar-link">resume.</NuxtLink>
         <NuxtLink to="/projects" class="navbar-link">projects.</NuxtLink>
         <NuxtLink to="/contact" class="navbar-link">contact.</NuxtLink>
-        <div class="logout-btn" @click="leave">leave-></div>
+        <!-- <div class="logout-btn" @click="leave">leave-></div> -->
       </div>
     </div>
   </nav>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { fetchUtility } from "~/server/api";
-import type { Utility } from "~/server/api";
+import { fetchUtility } from "~/composables/useResumeFetch";
+import type { Utility } from "~/composables/useResumeFetch";
 
 const props = defineProps({
   id: {

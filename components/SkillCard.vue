@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { fetchSkill } from "~/server/api";
-import type { Skill } from "~/server/api";
+import { fetchSkill } from "~/composables/useResumeFetch";
+import type { Skill } from "~/composables/useResumeFetch";
 
 const props = defineProps({
   id: {

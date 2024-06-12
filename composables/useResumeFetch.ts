@@ -4,6 +4,8 @@ export interface Education {
     educationTitle: string;
     schoolName: string;
     description: string;
+    startDate: string;
+    endDate: string;
   }
   
   export async function fetchEducations(): Promise<Education[]> {

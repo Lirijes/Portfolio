@@ -30,7 +30,7 @@ onMounted(() => {
         <div class="main-top">
           <div class="self-potrait-img">
             <img
-              src="../public/images/aiony-haust-3TLl_97HNJo-unsplash.jpg"
+              src="../public/images/thumbnail_image0.jpg"
               alt=""
             />
           </div>
@@ -152,6 +152,8 @@ onMounted(() => {
             width: 60%;
             height: 100%;
             border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
 
             @include sm {
               height: 50%;

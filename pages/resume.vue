@@ -29,43 +29,51 @@ onMounted(async () => {
   <div class="resume-page">
     <div class="resume-header">
       <h1 class="resume-title">resume.</h1>
-      <button class="load-resume">load resume as PDF</button>
+      <a href="/resume.lirijeshabani.pdf" target="_blank">
+        <button class="load-resume">load resume as PDF</button>
+      </a>
     </div>
     <div class="container">
-      <div class="resume-section">
-        <h1 class="resume-section-title">education.</h1>
-        <div class="resume-list" v-if="educations.length > 0">
-          <EducationCard
-            v-for="education in educations"
-            :key="education.id"
-            :id="education.id"
-          />
+      <div class="resume-content-container">
+        <div class="resume-section">
+          <h1 class="resume-section-title">education.</h1>
+          <div class="resume-list" v-if="educations.length > 0">
+            <InfoCard
+              v-for="education in educations"
+              :key="education.id"
+              :id="education.id"
+              type="education"
+            />
+          </div>
         </div>
+        <div class="resume-section">
+          <h1 class="resume-section-title">experience.</h1>
+          <div class="resume-list" v-if="experiences.length > 0">
+            <InfoCard
+              v-for="experience in experiences"
+              :key="experience.id"
+              :id="experience.id"
+              type="experience"
+            />
+          </div>
+        </div>  
       </div>
-      <div class="resume-section">
-        <h1 class="resume-section-title">experience.</h1>
-        <div class="resume-list" v-if="experiences.length > 0">
-          <ExperienceCard
-            v-for="experience in experiences"
-            :key="experience.id"
-            :id="experience.id"
-          />
+      <div class="resume-content-container">
+        <div class="resume-section">
+          <h1 class="resume-section-title">skills.</h1>
+          <div class="resume-list" v-if="skills.length > 0">
+            <SkillCard v-for="skill in skills" :key="skill.id" :id="skill.id" />
+          </div>
         </div>
-      </div>
-      <div class="resume-section">
-        <h1 class="resume-section-title">skills.</h1>
-        <div class="resume-list" v-if="skills.length > 0">
-          <SkillCard v-for="skill in skills" :key="skill.id" :id="skill.id" />
-        </div>
-      </div>
-      <div class="resume-section">
-        <h1 class="resume-section-title">utilities.</h1>
-        <div class="resume-list" v-if="utilities.length > 0">
-          <UtilityCard
-            v-for="utility in utilities"
-            :key="utility.id"
-            :id="utility.id"
-          />
+        <div class="resume-section">
+          <h1 class="resume-section-title">utilities.</h1>
+          <div class="resume-list" v-if="utilities.length > 0">
+            <UtilityCard
+              v-for="utility in utilities"
+              :key="utility.id"
+              :id="utility.id"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -141,23 +149,35 @@ onMounted(async () => {
       width: 80%;
     }
 
-    .resume-section {
+    .resume-content-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
       width: 100%;
-      background-color: #f5f5f5;
-      margin-bottom: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
-      .resume-section-title {
-        font-size: 20px;
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
+      @include lg {
+        flex-direction: row;
+        justify-content: space-between;
       }
 
-      .resume-list {
+      .resume-section {
+        background-color: #f5f5f5;
+        margin-bottom: 30px;
         border-radius: 10px;
-        width: 100%; //might need a different approach maybe grid for bigger screens
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        flex: 1;
+
+        .resume-section-title {
+          font-size: 20px;
+          display: flex;
+          justify-content: center;
+          margin-top: 20px;
+        }
+
+        .resume-list {
+          border-radius: 10px;
+          width: 100%;
+        }
       }
     }
   }

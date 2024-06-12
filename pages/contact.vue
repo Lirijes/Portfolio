@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { fetchProfile, fetchProfileLinks, submitContactForm } from '~/composables/useContactForm';
-import type { Profile, ProfileLink } from '~/composables/useContactForm';
+import { submitContactForm } from '~/composables/useContactForm';
+import { fetchProfile, fetchProfileLinks } from '~/composables/useProfileFetch';
+import type { Profile, ProfileLink } from '~/composables/useProfileFetch';
 
+console.log("contact page");
 const profile = ref<Profile | null>(null);
 const profileLinks = ref<ProfileLink[] | null>(null);
 

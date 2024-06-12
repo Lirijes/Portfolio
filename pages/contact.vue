@@ -267,7 +267,7 @@ onMounted(async () => {
 
         .error-text {
           font-size: 12px;
-          color: red;
+          color: rgb(180, 154, 154, 0.7); 
           margin-top: 5px;
         }
       }

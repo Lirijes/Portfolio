@@ -34,13 +34,9 @@ onMounted(async () => {
 
 <style lang="scss">
 .skill-card {
-  margin: 10px 0;
-  padding: 20px 0;
+  margin: 20px 0;
 
   .skill-card-container {
-    background-color: #f5f5f5;
-    width: 100%;
-    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -48,14 +44,14 @@ onMounted(async () => {
     padding: 0 40px;
 
     .skill-card-title {
-      font-size: 16px;
+      font-size: 14px;
       display: flex;
       justify-content: center;
       font-weight: bold;
     }
 
     .skill-card-description {
-      font-size: 14px;
+      font-size: 11px;
       display: flex;
       justify-content: center;
       text-align: center;

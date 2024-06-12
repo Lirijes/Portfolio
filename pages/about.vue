@@ -27,14 +27,25 @@ onMounted(async () => {
       </a>
     </div>
     <div class="container">
+      <div class="about-intro">
+        <p class="about-intro-text">
+          Hi. I'm Lirije Shabani, a full stack developer based in Sweden. 
+          Always looking for new opportunities to learn and grow as a developer, 
+          there is a strong passion for software development and a constant pursuit of new ways to improve skills and learn new technologies. 
+          I thrive on diving into new challenges and am always seeking opportunities for personal and professional growth.
+          I value the practical experience I've gained through my web development studies and my internship at Revolution Race, 
+          strengthening my understanding of real-world programming. 
+          Excitement surrounds the idea of applying these practical skills and contributing effectively to future roles and projects.
+        </p>
+      </div>
       <div class="about-content-container">
-        <div class="about-section">
+        <div class="about-section skills-section">
           <h1 class="about-section-title">skills.</h1>
           <div class="about-list" v-if="skills.length > 0">
             <SkillCard v-for="skill in skills" :key="skill.id" :id="skill.id" />
           </div>
         </div>
-        <div class="about-section">
+        <div class="about-section utilities-section">
           <h1 class="about-section-title">utilities.</h1>
           <div class="about-list" v-if="utilities.length > 0">
             <UtilityCard
@@ -109,6 +120,15 @@ onMounted(async () => {
       width: 80%;
     }
 
+    .about-intro {
+      padding: 20px 40px;
+      border-radius: 10px;
+      border: none;
+      background-color: #f5f5f5;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      margin-bottom: 30px;
+    }
+
     .about-content-container {
       display: flex;
       flex-direction: column;
@@ -137,6 +157,18 @@ onMounted(async () => {
         .about-list {
           border-radius: 10px;
           width: 100%;
+        }
+      }
+
+      .skills-section {
+        flex: 1;
+      }
+
+      .utilities-section {
+        flex: 2;
+
+        @include xl {
+          flex: 1;
         }
       }
     }

@@ -33,32 +33,35 @@ onMounted(async () => {
 </template>
 
 <style lang="scss">
+@import "../assets/scss/mixins.scss";
+
 .utility-card {
-  margin: 10px 0;
-  padding: 20px 0;
+  margin: 5px;
 
   .utility-card-container {
-    background-color: #f5f5f5;
     width: 100%;
-    border-radius: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     padding: 0 40px;
 
+    @include sm {
+      padding: 0 40px;
+      gap: 10px;
+      flex-direction: row;
+    }
+
     .utility-card-title {
-      font-size: 16px;
-      display: flex;
-      justify-content: center;
+      font-size: 14px;
       font-weight: bold;
+      margin-bottom: 0;
+
+      @include sm {
+        margin-bottom: 5px;
+      }
     }
 
     .utility-card-description {
-      font-size: 14px;
-      display: flex;
-      justify-content: center;
-      text-align: center;
+      font-size: 11px;
     }
   }
 }

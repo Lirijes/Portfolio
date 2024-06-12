@@ -67,7 +67,7 @@ const getIconForLink = (title: string): [string, string] => {
         class="footer-body"
         style="grid-row: 2; grid-column: 2; justify-content: center"
       >
-        <p class="footer-info">© 2035 by Lirije Shabani.</p>
+        <p class="footer-info">© 2024 by Lirije Shabani.</p>
       </div>
     </div>
   </div>

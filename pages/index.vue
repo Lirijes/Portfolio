@@ -44,7 +44,7 @@ onMounted(() => {
         </div>
         <div class="main-links">
           <div class="main-pages">
-            <NuxtLink to="/resume" class="main-page-links">resume.</NuxtLink>
+            <NuxtLink to="/about" class="main-page-links">about.</NuxtLink>
             <NuxtLink to="/projects" class="main-page-links"
               >projects.</NuxtLink
             >

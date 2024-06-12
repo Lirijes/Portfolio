@@ -18,10 +18,8 @@ const formData = ref({
 // Method to handle form submission
 const handleSubmit = async () => {
   try {
-    // Call the API function to submit the contact form
     await submitContactForm(formData.value);
     
-    // Optionally, you can reset the form fields after successful submission
     formData.value = {
       name: '',
       email: '',
@@ -50,18 +48,20 @@ onMounted(async () => {
       <h1 class="contact-title">contact me.</h1>
       <p class="contact-par">looking forward hearing from you</p>
       <div class="container">
-        
         <div class="contact-data">
-          <p class="contact-info">send me an email.</p>
-          <a class="footer-info" :href="'mailto:' + (profile ? profile.email.toLowerCase() : '')">
-              {{ profile ? profile.email.toLowerCase() : '' }}
-          </a>
-          <p class="contact-info">call or text me.</p>
-          <a :href="'tel:' + (profile ? profile.phoneNumber : '')" class="footer-info">
-            {{ profile ? profile.phoneNumber : '' }}
-          </a>
+          <div class="contact-item">
+            <p class="contact-info">send me an email.</p>
+            <a class="footer-info" :href="'mailto:' + (profile ? profile.email.toLowerCase() : '')">
+                {{ profile ? profile.email.toLowerCase() : '' }}
+            </a>
+          </div>
+          <div class="contact-item">
+            <p class="contact-info">call or text me.</p>
+            <a :href="'tel:' + (profile ? profile.phoneNumber : '')" class="footer-info">
+              {{ profile ? profile.phoneNumber : '' }}
+            </a>
+          </div>
         </div>
-        
         <form class="contact-form" @submit.prevent="handleSubmit">
           <div class="input-field">
             <input v-model="formData.name" type="text" class="contact-form-text" placeholder="">
@@ -115,46 +115,55 @@ onMounted(async () => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 20px;
 
     @include lg {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      width: 70%;
     }
 
     .contact-data {
-      width: 90%;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: space-evenly;
       border: 1px solid rgb(180, 154, 154);
       border-radius: 10px;
       padding: 20px 20px;
       margin-top: 20px;
-
       
       @include lg {
-        width: 100%;
-        grid-column-start: 1 ;
-        grid-column-end: 3;
+        margin-bottom: 20px;
+        width: 75%;
       }
 
-      .contact-info {
-        font-size: 16px;
-        margin-bottom: 5px;
-        font-weight: 700;
+      @include sm {
+        flex-direction: row;
       }
 
-      .footer-info {
-        font-size: 14px;
-        margin-bottom: 5px;
-        text-decoration: none;
-        color: black;
-      }
+      .contact-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .contact-info {
+          font-size: 16px;
+          margin-bottom: 5px;
+          font-weight: 700;
+        }
+
+        .footer-info {
+          font-size: 14px;
+          margin-bottom: 5px;
+          text-decoration: none;
+          color: black;
+        }
+      }   
     }
 
     .contact-form {
-      width: 90%;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -165,9 +174,8 @@ onMounted(async () => {
       margin: 20px 0;
 
       @include lg {
-        grid-column-start: 4;
-        grid-column-end: 7;
-        width: 100%;
+        width: 75%;
+        margin-top: 0;
       }
 
       .input-field {
@@ -192,6 +200,10 @@ onMounted(async () => {
           border-bottom: 2px solid rgb(180, 154, 154); 
           padding: 0 10px;
           font-size: 14px;
+        }
+
+        textarea.contact-form-text {
+          height: 80px; // Adjust the height for the textarea
         }
       }
       .contact-form-btn {

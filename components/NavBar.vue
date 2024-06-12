@@ -32,19 +32,6 @@ const checkMobile = () => {
   isMobile.value = window.innerWidth <= 768;
 };
 
-// const leave = () => {
-//   removeAuthTokenFromLocalStorage();
-
-//   // Optionally, you might want to clear other state variables or perform additional cleanup
-//   router.push('/onboarding');
-// };
-
-// const removeAuthTokenFromLocalStorage = () => {
-//   if (typeof window !== "undefined") {
-//     localStorage.removeItem("authToken");
-//   }
-// };
-
 onBeforeUnmount(() => {
   // Remove the listener when the component is destroyed
   window.removeEventListener("resize", checkMobile);
@@ -83,8 +70,8 @@ onMounted(() => {
 
       <!-- Navigation menu (hidden initially) -->
       <div class="nav-menu" :class="{ 'show-menu': isMenuOpen && isMobile }">
-        <div class="menu-item" @click="closeMenuAndNavigate('/resume')">
-          <NuxtLink to="/resume">resume.</NuxtLink>
+        <div class="menu-item" @click="closeMenuAndNavigate('/about')">
+          <NuxtLink to="/about">about.</NuxtLink>
         </div>
         <div class="menu-item" @click="closeMenuAndNavigate('/projects')">
           <NuxtLink to="/projects">projects.</NuxtLink>
@@ -96,10 +83,9 @@ onMounted(() => {
 
       <!-- Regular links (hidden when hamburger menu is open or not on mobile) -->
       <div class="navbar-links" v-if="!isMenuOpen || !isMobile">
-        <NuxtLink to="/resume" class="navbar-link">resume.</NuxtLink>
-        <NuxtLink to="/projects" class="navbar-link">projects.</NuxtLink>
-        <NuxtLink to="/contact" class="navbar-link">contact.</NuxtLink>
-        <!-- <div class="logout-btn" @click="leave">leave-></div> -->
+        <NuxtLink to="/about" class="navbar-link" active-class="active-link">about.</NuxtLink>
+        <NuxtLink to="/projects" class="navbar-link" active-class="active-link">projects.</NuxtLink>
+        <NuxtLink to="/contact" class="navbar-link" active-class="active-link">contact.</NuxtLink>
       </div>
     </div>
   </nav>
@@ -119,8 +105,8 @@ onMounted(() => {
   width: 100%;
 
   .container {
-    display: grid;
-    grid-template-columns: 260px 60px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 10px;
     position: relative;
@@ -219,8 +205,9 @@ onMounted(() => {
 
       @include mx {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
+        gap: 50px;
       }
 
       .navbar-link {
@@ -228,6 +215,11 @@ onMounted(() => {
 
         &:hover {
           transform: scale(1.1);
+          color: rgb(180, 154, 154);
+        }
+
+        &.active-link {
+          text-decoration: underline;
           color: rgb(180, 154, 154);
         }
       }

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import backgroundUrl from "~/public/images/marlon-medau-TFg35jn95OU-unsplashSECOND.jpg";
 import type { Profile } from "~/composables/useProfileFetch";
 import { fetchProfile } from "~/composables/useProfileFetch";
 
@@ -22,7 +21,7 @@ onMounted(() => {
   <div class="main">
     <div
       class="backgroundImage"
-      :style="{ backgroundImage: `url(${backgroundUrl})` }"
+      :style="{ backgroundImage: `url('/images/marlon-medau-TFg35jn95OU-unsplashSECOND.jpg')` }"
     ></div>
     <div class="container">
       <div class="main-content">

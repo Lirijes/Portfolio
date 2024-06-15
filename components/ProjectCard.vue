@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
 import { fetchProject } from "../composables/useProjectFetch";
 import { getImageUrl } from '../utils/helpers'; 
 import type { Project } from "../composables/useProjectFetch";

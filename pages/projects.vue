@@ -30,7 +30,7 @@ onMounted(async () => {
     <div class="container">
       <h1 class="page-title">projects.</h1>
       <div class="content">
-        <div class="project-list">
+        <div class="project-list-container">
           <ul class="project-list">
             <li
               v-for="project in projects"
@@ -46,24 +46,17 @@ onMounted(async () => {
           <ProjectCard :id="selectedProjectId" />
         </div>
       </div>
-
-      <div v-if="projects.length > 0">
-        <ProjectCard
-          v-for="project in projects"
-          :key="project.id"
-          :id="project.id"
-        />
-      </div>
-      <div v-else>
-        <p>No projects available.</p>
-      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss">
+@import "../assets/scss/mixins.scss";
+
 .projects-page {
+  min-height: 100vh;
   padding-top: 100px;
+  padding-bottom: 50px;
   background-color: rgb(
     180,
     154,
@@ -80,34 +73,51 @@ onMounted(async () => {
 
     .content {
       display: flex;
+      justify-content: space-between;
 
-      .project-list {
-        width: 30%;
-        padding-right: 20px;
+      @include mx {
+        justify-content: center;
+        gap: 40px;
+      }
+
+      .project-list-container {
+        width: 100px;
         list-style-type: none;
         padding: 0;
+        text-transform: lowercase;
+
+        @include mx {
+          width: 200px;
+        }
 
         .project-item {
           cursor: pointer;
           padding: 10px;
           margin-bottom: 5px;
           background-color: #f5f5f5;
-          border-radius: 5px;
+          border-radius: 10px;
           box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }
+          font-size: 14px;
+          transition: all 0.2s ease-in-out;
 
-        .project-item:hover {
-          background-color: #e0e0e0;
-        }
+          &:hover {
+            transform: scale(1.1);
+            color: rgb(180, 154, 154);
+          }
 
-        .selected {
-          background-color: #d0d0d0;
-          font-weight: bold;
+          &.selected {
+            text-decoration: underline;
+            color: rgb(180, 154, 154);
+          }
         }
       }
 
       .project-detail {
         width: 70%;
+
+        @include mx {
+          width: 70%;
+        }
       }
     }
   }

@@ -29,22 +29,29 @@ const closeMenu = () => {
 };
 
 const checkMobile = () => {
-  isMobile.value = window.innerWidth <= 768;
+  isMobile.value = window.innerWidth <= 767;
+};
+
+const closeMenuOnOutsideClick = (event: MouseEvent) => {
+  const target = event.target as HTMLElement;
+  const menu = document.querySelector('.nav-menu');
+  const hamburgerMenu = document.querySelector('.hamburger-menu');
+
+  if (menu && !menu.contains(target) && !hamburgerMenu?.contains(target)) {
+    closeMenu();
+  }
 };
 
 onBeforeUnmount(() => {
-  // Remove the listener when the component is destroyed
   window.removeEventListener("resize", checkMobile);
+  document.removeEventListener("click", closeMenuOnOutsideClick);
 });
 
 onMounted(() => {
-  // Check the initial screen size
   checkMobile();
-
-  // Add a listener for screen size changes
   window.addEventListener("resize", checkMobile);
-
-  fetchData(); // Fetch data when the component is mounted
+  document.addEventListener("click", closeMenuOnOutsideClick);
+  fetchData();
 });
 </script>
 
@@ -155,7 +162,7 @@ onMounted(() => {
       right: 13px;
       top: 60px;
       width: 30%;
-      background-color: rgba(180, 154, 154, 0.5);
+      background-color: rgba(180, 154, 154, 0.945);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       border-radius: 10px;
       animation: slideTop 0.4s ease-in-out;
@@ -165,18 +172,6 @@ onMounted(() => {
       }
 
       .menu-item {
-        font-size: 16px;
-        text-align: end;
-        margin: 20px 20px 20px 0;
-        cursor: pointer;
-        transition: opacity 0.4s ease;
-
-        &:hover {
-          opacity: 1;
-        }
-      }
-
-      .logout-btn {
         font-size: 16px;
         text-align: end;
         margin: 20px 20px 20px 0;

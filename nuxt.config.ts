@@ -5,16 +5,13 @@ export default defineNuxtConfig({
     public: {
       apiKey: process.env.API_KEY,
       apiBaseUrl: process.env.API_BASE_URL,
+      localServerUrl: process.env.LOCAL_SERVER_URL,
     },
   },
 
   css: [
     "bootstrap/dist/css/bootstrap.min.css",
     '@fortawesome/fontawesome-svg-core/styles.css'
-  ],
-
-  modules: [
-    'vue3-carousel-nuxt',
   ],
   
   vite: {

@@ -6,26 +6,26 @@ export interface ContactForm {
     message: string;
   }
   
-  export async function submitContactForm(formData: ContactForm): Promise<void> {
-    const config = useRuntimeConfig();
-    const baseUrl = config.public.apiBaseUrl;
-    try {
-      const response = await fetch(baseUrl + "/Profile/Contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "ApiKey": config.public.apiKey,
-        },
-        body: JSON.stringify(formData),
-      });
-  
-      if (!response.ok) {
-        throw new Error(
-          `Failed to submit contact form. Status: ${response.status}`
-        );
-      }
-    } catch (error) {
-      console.error("Error submitting contact form:", error);
-      throw error;
+export async function submitContactForm(formData: ContactForm): Promise<void> {
+  const config = useRuntimeConfig();
+  const baseUrl = config.public.apiBaseUrl;
+  try {
+    const response = await fetch(`${baseUrl}api/Profile/Contact`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "API_KEY": config.public.apiKey,
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to submit contact form. Status: ${response.status}`
+      );
     }
+  } catch (error) {
+    console.error("Error submitting contact form:", error);
+    throw error;
   }
+}

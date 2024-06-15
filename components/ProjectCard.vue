@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue';
 import { fetchProject } from "../composables/useProjectFetch";
+import { getImageUrl } from '../utils/helpers'; 
 import type { Project } from "../composables/useProjectFetch";
-import Carousel from "./Carousel.vue";
 
 const props = defineProps({
   id: {
@@ -9,8 +10,8 @@ const props = defineProps({
     required: true,
   },
 });
+
 const project = ref<Project | null>(null);
-const currentImageIndex = ref(0);
 
 onMounted(async () => {
   try {
@@ -23,18 +24,6 @@ onMounted(async () => {
     console.error("Error fetching project:", error);
   }
 });
-
-const projectImages = computed<string[]>(() => {
-  const images: string[] = [];
-  for (let i = 1; i <= 6; i++) {
-    const imageProperty = `image${i}` as keyof Project;
-    const imageUrl = project.value && project.value[imageProperty];
-    if (imageUrl && imageUrl !== "") {
-      images.push(String(imageUrl));
-    }
-  }
-  return images;
-});
 </script>
 
 <template>
@@ -44,34 +33,16 @@ const projectImages = computed<string[]>(() => {
         {{ project.projectTitle.toLowerCase() }}
       </h5>
       <a
-        :href="project.projectUrl.toLocaleLowerCase()"
+        :href="project.projectUrl.toLowerCase()"
         class="project-card-url"
         target="_blank"
-        >{{ project.projectUrl.toLocaleLowerCase() }}</a
       >
+        {{ project.projectUrl.toLowerCase() }}
+      </a>
       <p class="project-card-description">{{ project.description }}</p>
-      <Carousel
-        class="img-carousel"
-        :images="projectImages"
-        :currentIndex="currentImageIndex"
-      >
-        <template v-slot:carousel-item="{ currentIndex }">
-          <div class="carousel-wrapper">
-            <div
-              class="image-container"
-              v-for="(image, index) in projectImages"
-              :key="index"
-              :style="{ transform: `translateX(${-currentIndex * 100}%)` }"
-            >
-              <img class="one-img" :src="image" :alt="`Image ${index + 1}`" />
-            </div>
-          </div>
-        </template>
-      </Carousel>
-      <NuxtLink :to="`/project-detail/${project.id}`" class="project-card-link"
-        >read more about this project
-        <font-awesome-icon icon="fa-solid fa-chevron-right"
-      /></NuxtLink>
+      <div class="image-container" v-if="project.image1">
+        <img class="one-img" :src="getImageUrl(project.image1)" alt="Project Image" />
+      </div>
     </div>
   </div>
 </template>
@@ -103,48 +74,13 @@ const projectImages = computed<string[]>(() => {
       margin: 10px 0;
     }
 
-    .img-carousel {
-      height: 200px;
-      overflow: hidden;
+    .image-container {
+      height: 100%;
 
-      @include mx {
-        height: 400px;
-      }
-
-      @include xl {
-        height: 600px;
-      }
-
-      .carousel-wrapper {
-        display: block;
+      .one-img {
         width: 100%;
-
-        .image-container {
-          height: 100%;
-
-          .one-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
-        }
-      }
-    }
-
-    .project-card-link {
-      background-color: rgb(180, 154, 154, 0.5);
-      font-size: 14px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      padding: 2.5px 20px;
-      cursor: pointer;
-      margin: 15px 0;
-      width: 100%;
-      text-align: center;
-
-      &:hover {
-        background-color: rgb(180, 154, 154, 1);
-        text-decoration: none;
+        height: 100%;
+        object-fit: cover;
       }
     }
   }

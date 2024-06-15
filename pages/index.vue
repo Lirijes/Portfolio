@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import backgroundUrl from "~/public/images/marlon-medau-TFg35jn95OU-unsplashSECOND.jpg";
+import backgroundUrl from "~/images/marlon-medau-TFg35jn95OU-unsplashSECOND.jpg";
 import type { Profile } from "~/composables/useProfileFetch";
 import { fetchProfile } from "~/composables/useProfileFetch";
 
@@ -14,8 +14,7 @@ const fetchData = async () => {
 };
 
 onMounted(() => {
-  // checkAuthentication();
-  fetchData(); // Fetch data when the component is mounted
+  fetchData();
 });
 </script>
 
@@ -30,7 +29,7 @@ onMounted(() => {
         <div class="main-top">
           <div class="self-potrait-img">
             <img
-              src="../public/images/thumbnail_image0.jpg"
+              src="../images/thumbnail_image0.jpg"
               alt=""
             />
           </div>

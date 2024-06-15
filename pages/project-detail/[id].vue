@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// THIS PAGE IS CURRENTLY NOT WORKING AS EXPECTED
+
 import { fetchProject } from "~/composables/useProjectFetch";
 import type { Project } from "~/composables/useProjectFetch";
 

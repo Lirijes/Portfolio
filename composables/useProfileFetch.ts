@@ -16,6 +16,7 @@ export async function fetchProfile(profileId: string): Promise<Profile> {
   const config = useRuntimeConfig();
   const baseUrl = config.public.apiBaseUrl;
   try {
+    console.log(`Fetching profile from: ${baseUrl}api/Profile/ProfileData`);
     const response = await fetch(`${baseUrl}api/Profile/ProfileData`, {
         method: "GET",
         headers: {
@@ -23,6 +24,7 @@ export async function fetchProfile(profileId: string): Promise<Profile> {
           "API_KEY": config.public.apiKey,
         }
     });
+    console.log(`Response status: ${response.status}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

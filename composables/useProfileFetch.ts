@@ -16,17 +16,13 @@ export async function fetchProfile(profileId: string): Promise<Profile> {
   const config = useRuntimeConfig();
   const baseUrl = config.public.apiBaseUrl;
   try {
-    console.log(`Fetching profile from: ${baseUrl}api/Proxy/profile-data`);
-    const response = await fetch(`${baseUrl}api/Proxy/profile-data`, {
+    const response = await fetch(`${baseUrl}api/Profile/ProfileData`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          "API_KEY": config.public.apiKey,
         }
     });
-    console.log(`Response status: ${response.status}`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
     const json = await response.json();
     return json as Profile;
   } catch (error) {
@@ -50,6 +46,7 @@ export async function fetchProfileLinks(): Promise<ProfileLink[]> {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          "API_KEY": config.public.apiKey,
       }
     });
     const json = await response.json();

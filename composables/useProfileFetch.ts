@@ -23,6 +23,9 @@ export async function fetchProfile(profileId: string): Promise<Profile> {
           "API_KEY": config.public.apiKey,
         }
     });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     const json = await response.json();
     return json as Profile;
   } catch (error) {

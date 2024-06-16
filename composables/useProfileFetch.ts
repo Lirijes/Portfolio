@@ -16,11 +16,11 @@ export async function fetchProfile(profileId: string): Promise<Profile> {
   const config = useRuntimeConfig();
   const baseUrl = config.public.apiBaseUrl;
   try {
+    console.log(`Fetching profile from: ${baseUrl}api/Profile/ProfileData`);
     const response = await fetch(`${baseUrl}api/Profile/ProfileData`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "API_KEY": config.public.apiKey,
         }
     });
     console.log(`Response status: ${response.status}`);
@@ -50,7 +50,6 @@ export async function fetchProfileLinks(): Promise<ProfileLink[]> {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "API_KEY": config.public.apiKey,
       }
     });
     const json = await response.json();

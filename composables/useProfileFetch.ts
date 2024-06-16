@@ -16,7 +16,6 @@ export async function fetchProfile(profileId: string): Promise<Profile> {
   const config = useRuntimeConfig();
   const baseUrl = config.public.apiBaseUrl;
   try {
-    console.log(`Fetching profile from: ${baseUrl}api/Profile/ProfileData`);
     const response = await fetch(`${baseUrl}api/Profile/ProfileData`, {
         method: "GET",
         headers: {

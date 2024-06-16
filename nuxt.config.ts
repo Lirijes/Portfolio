@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     public: {
       apiKey: process.env.API_KEY,
       apiBaseUrl: process.env.API_BASE_URL,
-      localServerUrl: process.env.LOCAL_SERVER_URL || 'http://localhost:3000',
+      localServerUrl: process.env.LOCAL_SERVER_URL,
     },
   },
 

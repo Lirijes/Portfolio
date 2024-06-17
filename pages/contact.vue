@@ -3,11 +3,11 @@ import { submitContactForm } from '~/composables/useContactForm';
 import { fetchProfile, fetchProfileLinks } from '~/composables/useProfileFetch';
 import type { Profile, ProfileLink } from '~/composables/useProfileFetch';
 
-console.log("contact page");
 const profile = ref<Profile | null>(null);
 const profileLinks = ref<ProfileLink[] | null>(null);
 const showSuccessMessage = ref(false);
 const showErrorMessage = ref(false);
+const isSubmitting = ref(false);
 
 // Reactive object to store form data
 const formData = ref({
@@ -46,22 +46,20 @@ const validateMessage = (message: string) => {
 
 // Method to handle form submission
 const handleSubmit = async () => {
-  // Perform final validation check
   errors.value.name = validateName(formData.value.name);
   errors.value.email = validateEmail(formData.value.email);
   errors.value.phone = validatePhone(formData.value.phone);
   errors.value.message = validateMessage(formData.value.message);
 
-  // If there are validation errors, stop submission
   if (errors.value.name || errors.value.email || errors.value.phone || errors.value.message) {
     showErrorMessage.value = true;
     setTimeout(() => {
       showErrorMessage.value = false;
-    }, 5000); // Hide message after 5 seconds
+    }, 5000); 
     return;
   }
 
-  // If validation passes, submit the form
+  isSubmitting.value = true; 
   try {
     await submitContactForm(formData.value);
 
@@ -75,11 +73,9 @@ const handleSubmit = async () => {
     showSuccessMessage.value = true;
     setTimeout(() => {
       showSuccessMessage.value = false;
-    }, 5000); // Hide message after 5 seconds
-
-    console.log('Contact form submitted successfully!');
-  } catch (error) {
-    console.error('Error submitting contact form:', error);
+    }, 5000);
+  } finally {
+    isSubmitting.value = false;
   }
 };
 

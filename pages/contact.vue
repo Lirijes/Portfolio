@@ -35,7 +35,8 @@ const validateEmail = (email: string) => {
 };
 
 const validatePhone = (phone: string) => {
-  return /^(?:(?:\+46|0)\s*(?:[1-9][0-9]?[0-9]?)\s*-?\s*(?:[0-9]{2,3})\s*-?\s*(?:[0-9]{4,}))$/.test(phone) ? '' : 'Valid Swedish phone number is required.';
+  const regex = /^(?:(?:\+46\s*(?:[1-9][0-9]{1,2})\s*-?\s*(?:[0-9]{2,3})\s*-?\s*(?:[0-9]{2,4})|0\s*(?:[1-9][0-9]?[0-9]?)\s*-?\s*(?:[0-9]{2,3})\s*-?\s*(?:[0-9]{4,})))$/;
+  return regex.test(phone) ? '' : 'Invalid Swedish phone number';
 };
 
 const validateMessage = (message: string) => {

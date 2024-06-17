@@ -35,7 +35,7 @@ const validateEmail = (email: string) => {
 };
 
 const validatePhone = (phone: string) => {
-  const regex = /^(?:\+?(\d{1,3})[-.\s]?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,4})(?:[-.\s]?(\d{1,9}))?)$/;
+  const regex = /^(?:\+?(\d{1,3})[-.\s]?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{3,4})(?:[-.\s]?(\d{1,9}))?)$/;
   const isValid = regex.test(phone);
   return isValid ? '' : 'Invalid phone number';
 };

@@ -60,7 +60,7 @@ const handleSubmit = async () => {
     return;
   }
 
-  isSubmitting.value = true; 
+  isSubmitting.value = true;
   try {
     await submitContactForm(formData.value);
 
@@ -75,11 +75,18 @@ const handleSubmit = async () => {
     setTimeout(() => {
       showSuccessMessage.value = false;
     }, 5000);
+
+    console.log('Contact form submitted successfully!');
+  } catch (error) {
+    console.error('Error submitting contact form:', error);
+    showErrorMessage.value = true;
+    setTimeout(() => {
+      showErrorMessage.value = false;
+    }, 5000); 
   } finally {
-    isSubmitting.value = false;
+    isSubmitting.value = false; 
   }
 };
-
 onMounted(async () => {
     try {
         profile.value = await fetchProfile('1');
@@ -91,58 +98,60 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="contact-page">
-      <h1 class="contact-title">contact me.</h1>
-      <p class="contact-par">looking forward hearing from you</p>
-      <div class="container">
-        <div class="contact-data">
-          <div class="contact-item">
-            <p class="contact-info">send me an email.</p>
-            <a class="footer-info" :href="'mailto:' + (profile ? profile.email.toLowerCase() : '')">
-                {{ profile ? profile.email.toLowerCase() : '' }}
-            </a>
-          </div>
-          <div class="contact-item">
-            <p class="contact-info">call or text me.</p>
-            <a :href="'tel:' + (profile ? profile.phoneNumber : '')" class="footer-info">
-              {{ profile ? profile.phoneNumber : '' }}
-            </a>
-          </div>
+  <div class="contact-page">
+    <h1 class="contact-title">contact me.</h1>
+    <p class="contact-par">looking forward hearing from you</p>
+    <div class="container">
+      <div class="contact-data">
+        <div class="contact-item">
+          <p class="contact-info">send me an email.</p>
+          <a class="footer-info" :href="'mailto:' + (profile ? profile.email.toLowerCase() : '')">
+              {{ profile ? profile.email.toLowerCase() : '' }}
+          </a>
         </div>
-        <form class="contact-form" @submit.prevent="handleSubmit">
-          <div class="input-field">
-            <input v-model="formData.name" @keyup="errors.name = validateName(formData.name)" type="text" class="contact-form-text" placeholder="">
-            <p class="contact-placeholder">name.</p>
-            <p v-if="errors.name" class="error-text">{{ errors.name }}</p>
-          </div>
-          <div class="input-field">
-            <input v-model="formData.email" @keyup="errors.email = validateEmail(formData.email)" type="email" class="contact-form-text" placeholder="">
-            <p class="contact-placeholder">email.</p>
-            <p v-if="errors.email" class="error-text">{{ errors.email }}</p>
-          </div>
-          <div class="input-field">
-            <input v-model="formData.phone" @keyup="errors.phone = validatePhone(formData.phone)" type="text" class="contact-form-text" placeholder="">
-            <p class="contact-placeholder">phonenumber.</p>
-            <p v-if="errors.phone" class="error-text">{{ errors.phone }}</p>
-          </div>
-          <div class="input-field">
-            <textarea v-model="formData.message" @keyup="errors.message = validateMessage(formData.message)" class="contact-form-text" placeholder=""></textarea>
-            <p class="contact-placeholder">message.</p>
-            <p v-if="errors.message" class="error-text">{{ errors.message }}</p>
-          </div>
-
-          <button type="submit" class="contact-form-btn" :disabled="isSubmitting">send</button>
-          <span v-if="isSubmitting" id="loadingIndicator">sending...</span>
-        </form>
-        <div v-if="showSuccessMessage" class="success-message">
-          Thank you for your message! I will get back to you soon.
-        </div>
-        <div v-if="showErrorMessage" class="error-message">
-          Please fix the errors below and try again.
+        <div class="contact-item">
+          <p class="contact-info">call or text me.</p>
+          <a :href="'tel:' + (profile ? profile.phoneNumber : '')" class="footer-info">
+            {{ profile ? profile.phoneNumber : '' }}
+          </a>
         </div>
       </div>
+      <form class="contact-form" @submit.prevent="handleSubmit">
+        <div class="input-field">
+          <input v-model="formData.name" @keyup="errors.name = validateName(formData.name)" type="text" class="contact-form-text" placeholder="">
+          <p class="contact-placeholder">name.</p>
+          <p v-if="errors.name" class="error-text">{{ errors.name }}</p>
+        </div>
+        <div class="input-field">
+          <input v-model="formData.email" @keyup="errors.email = validateEmail(formData.email)" type="email" class="contact-form-text" placeholder="">
+          <p class="contact-placeholder">email.</p>
+          <p v-if="errors.email" class="error-text">{{ errors.email }}</p>
+        </div>
+        <div class="input-field">
+          <input v-model="formData.phone" @keyup="errors.phone = validatePhone(formData.phone)" type="text" class="contact-form-text" placeholder="">
+          <p class="contact-placeholder">phonenumber.</p>
+          <p v-if="errors.phone" class="error-text">{{ errors.phone }}</p>
+        </div>
+        <div class="input-field">
+          <textarea v-model="formData.message" @keyup="errors.message = validateMessage(formData.message)" class="contact-form-text" placeholder=""></textarea>
+          <p class="contact-placeholder">message.</p>
+          <p v-if="errors.message" class="error-text">{{ errors.message }}</p>
+        </div>
+
+        <button type="submit" class="contact-form-btn" :disabled="isSubmitting">
+          {{ isSubmitting ? 'sending...' : 'send' }}
+        </button>
+      </form>
+      <div v-if="showSuccessMessage" class="success-message">
+        Thank you for your message! I will get back to you soon.
+      </div>
+      <div v-if="showErrorMessage" class="error-message">
+        Please fix the errors below and try again.
+      </div>
     </div>
+  </div>
 </template>
+
 
 <style lang="scss">
 @import '../assets/scss/mixins.scss';

@@ -131,7 +131,8 @@ onMounted(async () => {
             <p v-if="errors.message" class="error-text">{{ errors.message }}</p>
           </div>
 
-          <button type="submit" class="contact-form-btn">send</button>
+          <button type="submit" class="contact-form-btn" :disabled="isSubmitting">send</button>
+          <span v-if="isSubmitting" id="loadingIndicator">sending...</span>
         </form>
         <div v-if="showSuccessMessage" class="success-message">
           Thank you for your message! I will get back to you soon.

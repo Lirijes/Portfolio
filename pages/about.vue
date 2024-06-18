@@ -37,6 +37,12 @@ onMounted(async () => {
           strengthening my understanding of real-world programming. 
           Excitement surrounds the idea of applying these practical skills and contributing effectively to future roles and projects.
         </p>
+        <a href="/Examensbevis_Webbutvecklare_inom_.NET_LirijeShabani.pdf" target="_blank">
+          <button class="about-btn">certificate</button>
+        </a>
+        <a href="/Rekommendationsbrev_LirijeShabani-Signed.pdf" target="_blank">
+          <button class="about-btn">letter of recommendation (swedish)</button>
+        </a>
       </div>
       <div class="about-content-container">
         <div class="about-section skills-section">
@@ -127,6 +133,19 @@ onMounted(async () => {
       background-color: #f5f5f5;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       margin-bottom: 30px;
+
+      .about-btn {
+        background-color: rgb(180, 154, 154, 0.7); 
+        border-radius: 5px;
+        border: none; 
+        padding: 10px 10px;
+        font-size: 14px;
+        margin: 10px 10px 0px 0px;
+
+        &:hover {
+          background-color: rgb(180, 154, 154, 1); 
+        }
+      }
     }
 
     .about-content-container {

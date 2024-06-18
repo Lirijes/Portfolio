@@ -49,13 +49,9 @@ onMounted(() => {
           </a>
         </div>
       </div>
-      <a
-        :href="project.projectUrl.toLowerCase()"
-        class="project-card-url"
-        target="_blank"
-      >
-        {{ project.projectUrl.toLowerCase() }}
-      </a>
+      <div class="project-card-status" v-if="project.status">
+        <p>current status for the application: <span>{{ project.status.toLowerCase() }}</span></p>
+      </div>
       <p class="project-card-description">{{ project.description }}</p>
       <div class="image-container" v-if="project.image1">
         <img class="one-img" :src="getImageUrl(project.image1)" alt="Project Image" />
@@ -99,9 +95,17 @@ onMounted(() => {
         }
       }
     }
-    .project-card-url {
+    .project-card-status {
       font-style: italic;
       font-size: 11px;
+
+      p {
+        margin: 0;
+
+        span {
+          font-weight: bold;
+        }
+      }
     }
 
     .project-card-description {

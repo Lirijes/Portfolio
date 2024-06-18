@@ -4,6 +4,7 @@ export interface Project {
     projectUrl: string;
     description: string;
     githubUrl: string;
+    status: string;
     image1: string;
     image2: string;
     image3: string;

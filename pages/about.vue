@@ -40,9 +40,6 @@ onMounted(async () => {
         <a href="/Examensbevis_Webbutvecklare_inom_.NET_LirijeShabani.pdf" target="_blank">
           <button class="about-btn">certificate</button>
         </a>
-        <a href="/Rekommendationsbrev_LirijeShabani-Signed.pdf" target="_blank">
-          <button class="about-btn">letter of recommendation (swedish)</button>
-        </a>
       </div>
       <div class="about-content-container">
         <div class="about-section skills-section">

@@ -37,8 +37,13 @@ onMounted(async () => {
               :key="project.id"
               @click="selectProject(project.id)"
               :class="{ 'project-item': true, 'selected': project.id === selectedProjectId }"
+              :title="project.projectTitle"
             >
-              {{ project.projectTitle }}
+            <font-awesome-icon 
+              :icon="project.id === selectedProjectId ? ['fas', 'caret-right'] : ['fas', 'caret-down']"
+              class="project-icon"
+            />
+            <span class="project-title">{{ project.projectTitle }}</span>
             </li>
           </ul>
         </div>
@@ -81,7 +86,7 @@ onMounted(async () => {
       }
 
       .project-list-container {
-        width: 100px;
+        width: 50px;
         list-style-type: none;
         padding: 0;
         text-transform: lowercase;
@@ -94,6 +99,10 @@ onMounted(async () => {
           cursor: pointer;
           padding: 10px;
           margin-bottom: 5px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
           background-color: #f5f5f5;
           border-radius: 10px;
           box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -106,14 +115,29 @@ onMounted(async () => {
           }
 
           &.selected {
-            text-decoration: underline;
             color: rgb(180, 154, 154);
+          }
+
+          @include mx {
+            justify-content: flex-start;
+          }
+
+          .project-title {
+            display: none;
+
+            @include mx {
+              display: block;
+            }
+          }
+
+          .project-icon {
+            font-size: 18px;
           }
         }
       }
 
       .project-detail {
-        width: 70%;
+        width: 80%;
 
         @include mx {
           width: 70%;

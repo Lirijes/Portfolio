@@ -28,7 +28,7 @@ onMounted(() => {
         <div class="main-top">
           <div class="self-potrait-img">
             <img
-              src="/images/IMG_9384(2).PNG"
+              src="/images/thumbnail_image0.jpg"
               alt="selfie!"
             />
           </div>

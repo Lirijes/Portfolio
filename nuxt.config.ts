@@ -11,7 +11,8 @@ export default defineNuxtConfig({
 
   css: [
     "bootstrap/dist/css/bootstrap.min.css",
-    '@fortawesome/fontawesome-svg-core/styles.css'
+    '@fortawesome/fontawesome-svg-core/styles.css',
+    "assets/scss/main.scss"
   ],
   
   vite: {
@@ -22,5 +23,16 @@ export default defineNuxtConfig({
   
   generate: {
     routes: ['/'],
+  },
+
+  app: {
+    head: {
+      link: [
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Domine:wght@400;700&display=swap',
+        },
+      ],
+    },
   },
 });

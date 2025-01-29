@@ -29,15 +29,15 @@ onMounted(() => {
           <div class="self-potrait-img">
             <img
               src="/images/thumbnail_image0.jpg"
-              alt=""
+              alt="selfie!"
             />
           </div>
           <div class="main-info">
             <h1 class="info-title">hello.</h1>
             <h5 class="info-header">
-              {{ profile ? profile.title.toLowerCase() : "web developer" }}
+              {{ profile ? profile.title.toLowerCase() : "full-stack developer" }}
             </h5>
-            <p class="info-aboutme">{{ profile ? profile.aboutMe : "" }}</p>
+            <p class="info-aboutme">{{ profile ? profile.aboutMe : "As a Full-Stack Developer, I love building smooth digital experiences and tackling technical challenges. Problem-solving is both creative and exciting to me, and my goal is to use technology to create meaningful and impactful solutions." }}</p>
           </div>
         </div>
         <div class="main-links">
@@ -60,6 +60,7 @@ onMounted(() => {
 .main {
   position: relative;
   min-height: 100vh;
+  padding-bottom: 80px;
 
   .backgroundImage {
     position: absolute;
@@ -91,7 +92,7 @@ onMounted(() => {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 300px 0px 200px 0px;
+        margin: 200px 0px 200px 0px;
         width: 100%;
       }
 

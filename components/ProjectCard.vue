@@ -36,10 +36,9 @@ onMounted(() => {
 <template>
   <div v-if="project" class="project-card">
     <div class="container">
+      <!-- Header: Title & Links -->
       <div class="project-card-header">
-        <h5 class="project-card-title">
-          {{ project.projectTitle.toLowerCase() }}
-        </h5>
+        <h5 class="project-card-title">{{ project.projectTitle.toLowerCase() }}</h5>
         <div class="project-card-header-icons">
           <a :href="project.githubUrl" target="_blank">
             <font-awesome-icon :icon="['fab', 'github']" class="icon-space" />
@@ -49,12 +48,26 @@ onMounted(() => {
           </a>
         </div>
       </div>
+      <!-- Status -->
       <div class="project-card-status" v-if="project.status">
-        <p>current status for the application: <span>{{ project.status.toLowerCase() }}</span></p>
+        <p>status: <span>{{ project.status.toLowerCase() }}</span></p>
       </div>
+      <!-- Description -->
       <p class="project-card-description">{{ project.description }}</p>
+      <!-- Techstack -->
+      <div class="project-card-utilities" v-if="project.projectUtilities.length">
+        <h6>techstack:</h6>
+        <ul>
+          <li v-for="utility in project.projectUtilities" :key="utility.id">
+            {{ utility.utility.name }} 
+          </li>
+        </ul>
+      </div>
+      <!-- Images -->
       <div class="image-container" v-if="project.image1">
         <img class="one-img" :src="getImageUrl(project.image1)" alt="Project Image" />
+        <img v-if="project.image2" class="project-img" :src="getImageUrl(project.image2)" alt="Project Image" />
+        <img v-if="project.image3" class="project-img" :src="getImageUrl(project.image3)" alt="Project Image" />
       </div>
     </div>
   </div>
@@ -68,12 +81,15 @@ onMounted(() => {
     background-color: #f5f5f5;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
     .project-card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 0px;
 
       .project-card-title {
         font-size: 16px;
@@ -81,50 +97,81 @@ onMounted(() => {
 
         @include mx {
           font-size: 22px;
+          color: #333;
         }
       }
 
       .project-card-header-icons {
         display: flex;
         align-items: center;
+        gap: 10px;
 
         .icon-space {
           margin-left: 10px;
           font-size: 20px;
           color: #333;
+          transition: transform 0.2s;
+
+          &:hover {
+            transform: scale(1.1);
+            color: #f77c7c;
+          }
         }
       }
     }
     .project-card-status {
       font-style: italic;
       font-size: 11px;
-
-      p {
-        margin: 0;
-
-        span {
-          font-weight: bold;
-        }
-      }
+      color: #555;
     }
-
     .project-card-description {
-      margin: 10px 0;
       font-size: 12px;
-
+      color: #333;
       @include mx {
         font-size: 14px;
       }
     }
+    .project-card-utilities {
+      border-radius: 8px;
+      flex: 1;
+      
+      h6 {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 2px;
 
+        @include mx {
+          font-size: 15px;
+          color: #333;
+        }
+      }
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 12px;
+
+        @include mx {
+          font-size: 14px;
+        }
+      }
+    }
     .image-container {
-      height: 100%;
-      padding-bottom: 10px;
+      display: flex;
+      gap: 8px;
 
       .one-img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        border-radius: 10px;
+      }
+
+      .project-img {
+        width: 100%;
+        max-width: 250px;
+        height: auto;
         border-radius: 10px;
       }
     }

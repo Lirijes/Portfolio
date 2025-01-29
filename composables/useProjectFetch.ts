@@ -1,14 +1,22 @@
+export interface ProjectUtility {
+  id: number;
+  utility: Utility;
+}
 export interface Project {
     id: number;
     projectTitle: string;
     projectUrl: string;
     description: string;
+    improvements: string;
+    lessonsLearned: string;
+    notes: string;
     githubUrl: string;
     status: string;
     image1: string;
     image2: string;
     image3: string;
     image4: string;
+    projectUtilities: ProjectUtility[];
   }
   
 export async function fetchProjects(): Promise<Project[]> {

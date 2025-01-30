@@ -20,9 +20,6 @@ onMounted(async () => {
   <div class="about-page">
     <div class="about-header">
       <h1 class="about-title">about me.</h1>
-      <a href="/resume.lirijeshabani.pdf" target="_blank">
-        <button class="load-resume">load resume as PDF</button>
-      </a>
     </div>
     <!-- Grid Container -->
     <div class="grid-container">
@@ -41,6 +38,9 @@ onMounted(async () => {
         </p>
         <a href="/Examensbevis_Webbutvecklare_inom_.NET_LirijeShabani.pdf" target="_blank">
           <button class="about-btn">certificate</button>
+        </a><br /><br />
+        <a href="/resume.lirijeshabani.pdf" target="_blank">
+          <button class="about-btn">load resume as PDF</button>
         </a>
       </div>
 
@@ -92,20 +92,6 @@ onMounted(async () => {
     .about-title {
       font-size: 22px;
       margin-bottom: 10px;
-    }
-
-    .load-resume {
-      padding: 7px 15px;
-      border-radius: 10px;
-      border: none;
-      background-color: #f5f5f5;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-
-      &:hover {
-        transform: scale(1.1);
-      }
     }
   }
 

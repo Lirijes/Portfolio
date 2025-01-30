@@ -36,6 +36,7 @@ onMounted(() => {
 <template>
   <div v-if="project" class="project-card">
     <div class="container">
+
       <!-- Header: Title & Links -->
       <div class="project-card-header">
         <h5 class="project-card-title">{{ project.projectTitle.toLowerCase() }}</h5>
@@ -48,21 +49,43 @@ onMounted(() => {
           </a>
         </div>
       </div>
+
       <!-- Status -->
       <div class="project-card-status" v-if="project.status">
         <p>status: <span>{{ project.status.toLowerCase() }}</span></p>
       </div>
+
       <!-- Description -->
       <p class="project-card-description">{{ project.description }}</p>
+
+      <!-- Grid Layout för Improvements, Lessons Learned & Notes -->
+      <div class="project-card-sections">
+        <div class="project-card-section" v-if="project.notes">
+          <h6>notes</h6>
+          <p>{{ project.notes }}</p>
+        </div>
+        
+        <div class="project-card-section" v-if="project.lessonsLearned">
+          <h6>lessons learned</h6>
+          <p>{{ project.lessonsLearned }}</p>
+        </div>
+
+        <div class="project-card-section" v-if="project.improvements">
+          <h6>improvements</h6>
+          <p>{{ project.improvements }}</p>
+        </div>
+      </div>
+
       <!-- Techstack -->
       <div class="project-card-utilities" v-if="project.projectUtilities.length">
-        <h6>techstack:</h6>
+        <h6>techstack</h6>
         <ul>
-          <li v-for="utility in project.projectUtilities" :key="utility.id">
+          <li v-for="utility in project.projectUtilities" :key="utility.id" class="utility-tag">
             {{ utility.utility.name }} 
           </li>
         </ul>
       </div>
+
       <!-- Images -->
       <div class="image-container" v-if="project.image1">
         <img class="one-img" :src="getImageUrl(project.image1)" alt="Project Image" />
@@ -124,10 +147,44 @@ onMounted(() => {
       color: #555;
     }
     .project-card-description {
+      font-family: 'Domine', serif;
       font-size: 14px;
       color: #333;
+
       @include mx {
         font-size: 14px;
+      }
+    }
+    .project-card-sections {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 10px;
+      margin-top: 10px;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr; 
+      }
+    }
+    .project-card-section {
+      padding: 10px;
+      border-radius: 6px;
+      min-height: 100px;
+      transition: transform 0.2s ease-in-out;
+  
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      h6 {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 4px;
+        
+      }
+
+      p {
+        font-size: 13px;
+        color: #555;
       }
     }
     .project-card-utilities {
@@ -138,6 +195,7 @@ onMounted(() => {
         font-size: 14px;
         font-weight: bold;
         margin-bottom: 2px;
+        color: #444;
 
         @include mx {
           font-size: 15px;
@@ -153,6 +211,21 @@ onMounted(() => {
 
         @include mx {
           font-size: 14px;
+        }
+
+        .utility-tag {
+          padding: 5px 10px; 
+          font-size: 12px;
+          border-radius: 15px; 
+          font-weight: 500;
+          text-transform: capitalize; 
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
+          transition: background-color 0.3s ease;
+          font-family: 'Domine', serif;
+
+          &:hover {
+            background-color:  rgba(180, 154, 154, 0.3);
+          }
         }
       }
     }

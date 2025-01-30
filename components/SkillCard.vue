@@ -25,7 +25,7 @@ onMounted(async () => {
 
 <template>
   <div v-if="skill" class="skill-card">
-    <div class="skill-card-container">
+    <div class="skill-card-info">
       <h5 class="skill-card-title">{{ skill.name.toLowerCase() }}</h5>
       <p class="skill-card-description">{{ skill.description }}</p>
     </div>
@@ -34,20 +34,28 @@ onMounted(async () => {
 
 <style lang="scss">
 .skill-card {
-  margin: 20px 0;
+  width: 100%;
+  border-radius: 10px;
+  padding: 15px;
+  max-width: 350px;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
 
-  .skill-card-container {
+  .skill-card-info {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0 40px;
+    padding: 15px;
 
     .skill-card-title {
       font-size: 14px;
-      display: flex;
-      justify-content: center;
       font-weight: bold;
+      text-align: center;
     }
 
     .skill-card-description {
@@ -55,6 +63,7 @@ onMounted(async () => {
       display: flex;
       justify-content: center;
       text-align: center;
+      margin-top: 5px;
     }
   }
 }

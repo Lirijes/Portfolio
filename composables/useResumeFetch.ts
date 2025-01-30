@@ -1,124 +1,129 @@
-// // FUNCTION FOR FETCHING EDUCATION FROM API
-// export interface Education {
-//     id: number;
-//     educationTitle: string;
-//     schoolName: string;
-//     description: string;
-//     startDate: string;
-//     endDate: string;
-//   }
+// FUNCTION FOR FETCHING EDUCATION FROM API
+export interface Education {
+    id: number;
+    educationTitle: string;
+    schoolName: string;
+    description: string;
+    startDate: string;
+    endDate: string;
+  }
   
-//   export async function fetchEducations(): Promise<Education[]> {
-//     const config = useRuntimeConfig();
-//     const baseUrl = config.public.apiBaseUrl;
-//     try {
-//       const response = await fetch(
-//         baseUrl + "/Profile/ProfileEducations", {
-//           method: "GET",
-//           headers: {
-//             "Content-Type": "application/json",
-//             "ApiKey": config.public.apiKey,
-//           },
-//       });
-//       const json = await response.json();
-//       return json as Education[];
-//     } catch (error) {
-//       console.error("Error fetching education:", error);
-//       throw error;
-//     }
-//   }
+  export async function fetchEducations(): Promise<Education[]> {
+    const config = useRuntimeConfig();
+    const baseUrl = config.public.apiBaseUrl;
+    try {
+      const response = await fetch(`${baseUrl}api/Profile/ProfileEducations`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "API_KEY": config.public.apiKey,
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to fetch educations. Status: ${response.status}`);
+      }
+      const json = await response.json();
+      return json as Education[];
+    } catch (error) {
+      console.error("Error fetching educations:", error);
+      throw error;
+    }
+  }
   
-//   export async function fetchEducation(id: string): Promise<Education> {
-//     const config = useRuntimeConfig();
-//     const baseUrl = config.public.apiBaseUrl;
-//     try {
-//       const response = await fetch(
-//         baseUrl + `/Profile/ProfileEducation?id=${id}`, {
-//           method: "GET",
-//           headers: {
-//             "Content-Type": "application/json",
-//             "ApiKey": config.public.apiKey,
-//           },
-//       });
-//       if (!response.ok) {
-//         // Handle non-success status codes
-//         if (response.status === 404) {
-//           throw new Error("Education not found");
-//         } else {
-//           throw new Error(
-//             `Failed to fetch education. Status: ${response.status}`
-//           );
-//         }
-//       }
-//       const json = await response.json();
-//       return json as Education;
-//     } catch (error) {
-//       console.error("Error fetching education:", error);
-//       throw error;
-//     }
-//   }
+  export async function fetchEducation(id: string): Promise<Education> {
+    const config = useRuntimeConfig();
+    const baseUrl = config.public.apiBaseUrl;
+    try {
+      const response = await fetch(`${baseUrl}api/Profile/ProfileEducation?id=${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "API_KEY": config.public.apiKey,
+        },
+      });
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error("Education not found");
+        } else {
+          throw new Error(`Failed to fetch education. Status: ${response.status}`);
+        }
+      }
+      const json = await response.json();
+      return json as Education;
+    } catch (error) {
+      console.error("Error fetching education:", error);
+      throw error;
+    }
+  }
   
-//   // FUNCTION FOR FETCHING EXPERIENCE FROM API
-//   export interface Experience {
-//     id: number;
-//     title: string;
-//     startDate: string;
-//     endDate: string;
-//     workplace: string;
-//     description: string;
-//   }
+// FUNCTION FOR FETCHING EXPERIENCE FROM API
+  export interface Experience {
+    id: number;
+    title: string;
+    startDate: string;
+    endDate: string;
+    workplace: string;
+    description: string;
+  }
   
-//   export async function fetchExperiences(): Promise<Experience[]> {
-//     const config = useRuntimeConfig();
-//     const baseUrl = config.public.apiBaseUrl;
-//     try {
-//       const response = await fetch(
-//         baseUrl + "/Profile/ProfileExperiences", {
-//           method: "GET",
-//           headers: {
-//             "Content-Type": "application/json",
-//             "ApiKey": config.public.apiKey,
-//           },
-//       });
-//       const json = await response.json();
-//       return json as Experience[];
-//     } catch (error) {
-//       console.error("Error fetching experience:", error);
-//       throw error;
-//     }
-//   }
+  export interface Experience {
+    id: number;
+    title: string;
+    workplace: string;
+    description: string;
+    startDate: string;
+    endDate: string;
+  }
   
-//   export async function fetchExperience(id: string): Promise<Experience> {
-//     const config = useRuntimeConfig();
-//     const baseUrl = config.public.apiBaseUrl;
-//     try {
-//       const response = await fetch(
-//         baseUrl + `/Profile/ProfileExperience?id=${id}`, {
-//           method: "GET",
-//           headers: {
-//             "Content-Type": "application/json",
-//             "ApiKey": config.public.apiKey,
-//           },
-//       });
-//       if (!response.ok) {
-//         // Handle non-success status codes
-//         if (response.status === 404) {
-//           throw new Error("Experience not found");
-//         } else {
-//           throw new Error(
-//             `Failed to fetch experience. Status: ${response.status}`
-//           );
-//         }
-//       }
-//       const json = await response.json();
-//       return json as Experience;
-//     } catch (error) {
-//       console.error("Error fetching experience:", error);
-//       throw error;
-//     }
-//   }
+  export async function fetchExperiences(): Promise<Experience[]> {
+    const config = useRuntimeConfig();
+    const baseUrl = config.public.apiBaseUrl;
+    try {
+      const response = await fetch(`${baseUrl}api/Profile/ProfileExperiences`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "API_KEY": config.public.apiKey,
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to fetch experiences. Status: ${response.status}`);
+      }
+      const json = await response.json();
+      return json as Experience[];
+    } catch (error) {
+      console.error("Error fetching experiences:", error);
+      throw error;
+    }
+  }
   
-  // FUNCTION FOR FETCHING SKILLS FROM API
+  export async function fetchExperience(id: string): Promise<Experience> {
+    const config = useRuntimeConfig();
+    const baseUrl = config.public.apiBaseUrl;
+    try {
+      const response = await fetch(`${baseUrl}api/Profile/ProfileExperience?id=${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "API_KEY": config.public.apiKey,
+        },
+      });
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error("Experience not found");
+        } else {
+          throw new Error(`Failed to fetch experience. Status: ${response.status}`);
+        }
+      }
+      const json = await response.json();
+      return json as Experience;
+    } catch (error) {
+      console.error("Error fetching experience:", error);
+      throw error;
+    }
+  }
+  
+// FUNCTION FOR FETCHING SKILLS FROM API
 export interface Skill {
   id: number;
   name: string;

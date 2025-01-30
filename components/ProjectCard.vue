@@ -79,7 +79,6 @@ onMounted(() => {
 .project-card {
   .container {
     background-color: #f5f5f5;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     padding: 16px;
     display: flex;
@@ -125,7 +124,7 @@ onMounted(() => {
       color: #555;
     }
     .project-card-description {
-      font-size: 12px;
+      font-size: 14px;
       color: #333;
       @include mx {
         font-size: 14px;

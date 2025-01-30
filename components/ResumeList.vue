@@ -69,13 +69,12 @@ onMounted(async () => {
   
     .resume-list {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   
       .resume-card {
         width: 100%;
         border-radius: 10px;
         padding: 15px;
-        max-width: 350px;
         text-align: center;
         transition: transform 0.2s ease-in-out;
   

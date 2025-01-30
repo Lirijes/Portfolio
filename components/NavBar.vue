@@ -207,6 +207,7 @@ onMounted(() => {
 
       .navbar-link {
         transition: all 0.2s ease-in-out;
+        text-decoration: none;
 
         &:hover {
           transform: scale(1.1);
@@ -214,7 +215,6 @@ onMounted(() => {
         }
 
         &.active-link {
-          text-decoration: underline;
           color: rgb(180, 154, 154);
         }
       }

@@ -28,12 +28,15 @@ onMounted(() => {
         <div class="main-top">
           <div class="self-potrait-img">
             <img
-              src="/images/thumbnail_image0.jpg"
+              src="/images/profile-picc.png"
               alt="selfie!"
             />
           </div>
           <div class="main-info">
-            <h1 class="info-title">hello.</h1>
+            <h1 class="info-title">
+              <span class="span-title">dream.</span> 
+              build. deliver.
+            </h1>
             <h5 class="info-header">
               {{ profile ? profile.title.toLowerCase() : "full-stack developer" }}
             </h5>
@@ -60,203 +63,130 @@ onMounted(() => {
 .main {
   position: relative;
   min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding-bottom: 80px;
-
+  padding-top: 100px;
+  
   .backgroundImage {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-size: cover;
-    background-position: top;
-    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
     opacity: 0.8;
+    z-index: -1;
   }
 
   .container {
     position: relative;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
 
     .main-content {
-      margin: 200px 0px 200px 0px;
-
-      @include sm {
-        display: flex;
-        flex-direction: column;
-      }
-
-      @include lg {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 200px 0px 200px 0px;
-        width: 100%;
-      }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
 
       .main-top {
         display: flex;
+        flex-direction: column;
         align-items: center;
+        gap: 60px;
 
-        @include sm {
-          display: grid;
-          grid-template-columns: 250px 320px;
-        }
-
-        @include mx {
-          grid-template-columns: 250px 400px;
-        }
-
-        @include lg {
-          grid-template-columns: 270px 500px;
-          justify-content: space-between;
-          width: 100%;
-        }
-
-        @include xl {
-          grid-template-columns: 260px 640px;
-          justify-content: space-between;
-        }
-
-        @include xxl {
-          grid-template-columns: 300px 700px;
-          justify-content: space-between;
+        @media (min-width: 992px) {
+          flex-direction: row;
+          text-align: left;
         }
 
         .self-potrait-img {
-          display: none;
-
-          @include sm {
-            display: flex;
-            justify-content: center;
-          }
-
-          @include mx {
-            margin-right: 10px;
-          }
-
-          @include lg {
-            width: 180%;
-            justify-content: center;
-          }
-
-          @include xl {
-            width: 180%;
-            justify-content: end;
-          }
+          display: flex;
+          justify-content: center;
 
           img {
-            width: 60%;
-            height: 100%;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             object-fit: cover;
             object-position: center;
+            transition: transform 0.3s ease-in-out;
 
-            @include sm {
-              height: 50%;
+            &:hover {
+              transform: scale(1.05);
             }
 
-            @include xl {
-              margin-right: 50px;
+            @media (min-width: 992px) {
+              width: 250px;
+              height: 250px;
+            }
+
+            @media (min-width: 1200px) {
+              width: 300px;
+              height: 300px;
             }
           }
         }
 
         .main-info {
-          @include sm {
-            width: 100%;
-          }
-
-          @include lg {
-            width: 80%;
-          }
-
-          @include xl {
-            width: 90%;
-          }
+          max-width: 600px;
 
           .info-title {
-            font-size: 70px;
+            font-size: 2rem;
             font-weight: bold;
             margin-bottom: 15px;
+
+            .span-title {
+              color: rgb(180, 154, 154);
+              text-shadow: 4px 2px 8px rgba(0, 0, 0, 0.5);
+            }
+
+            @media (min-width: 1400px) {
+              font-size: 2.5rem;
+            }
           }
 
           .info-header {
-            display: none;
-
-            @include sm {
-              display: block;
-              font-size: 22px;
-            }
+            font-size: 1.2rem;
+            margin-bottom: 10px;
           }
 
           .info-aboutme {
-            display: none;
-
-            @include sm {
-              display: block;
-              font-size: 16px;
-              margin: 15px 0 15px 0;
-            }
+            font-size: 1rem;
+            line-height: 1.6;
           }
         }
       }
 
       .main-links {
-        position: relative;
-        top: 20px;
-
-        @include lg {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          width: 100%;
-        }
+        margin-top: 20px;
 
         .main-pages {
           display: flex;
-          flex-direction: column;
-          align-items: center;
-
-          @include sm {
-            flex-direction: row;
-            justify-content: space-evenly;
-          }
-
-          @include lg {
-            justify-content: space-evenly;
-            grid-column-start: 2;
-            grid-column-end: 4;
-            margin-left: 20px;
-          }
-
-          @include xxl {
-            justify-content: space-evenly;
-            grid-column-start: 2;
-            grid-column-end: 4;
-            margin-left: 80px;
-          }
+          flex-wrap: wrap;
+          gap: 15px;
+          justify-content: center;
 
           .main-page-links {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 130px;
-            height: 40px;
-            border: 0.5px solid rgb(180, 154, 154);
+            padding: 10px 20px;
+            border: 1px solid rgb(180, 154, 154);
             border-radius: 20px;
             transition: all 0.15s ease-in-out;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
-
-            @include sm {
-              margin-bottom: 0px;
-            }
+            text-decoration: none;
 
             &:hover {
               background-color: rgb(252, 215, 215);
               cursor: pointer;
+              transform: scale(1.05);
             }
           }
         }
@@ -264,4 +194,5 @@ onMounted(() => {
     }
   }
 }
+
 </style>

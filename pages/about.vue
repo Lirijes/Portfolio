@@ -36,9 +36,6 @@ onMounted(async () => {
           I’m excited to keep evolving and make a meaningful impact as a
           developer.
         </p>
-        <a href="/Examensbevis_Webbutvecklare_inom_.NET_LirijeShabani.pdf" target="_blank">
-          <button class="about-btn">certificate</button>
-        </a><br /><br />
         <a href="/resume.lirijeshabani.pdf" target="_blank">
           <button class="about-btn">load resume as PDF</button>
         </a>

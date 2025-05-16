@@ -36,7 +36,7 @@ onMounted(async () => {
           I’m excited to keep evolving and make a meaningful impact as a
           developer.
         </p>
-        <a href="/resume.lirijeshabani.pdf" target="_blank">
+        <a href="/Resume_Lirije_Shabani.pdf" target="_blank">
           <button class="about-btn">load resume as PDF</button>
         </a>
       </div>
